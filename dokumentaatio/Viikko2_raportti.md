@@ -4,8 +4,8 @@
 ## Mitä on tehty?
 ----
 
-- Aloitettu ohjelman toteutusta (5 h)
-- Aloitettu testauksen toteutusta (2 h)
+- Aloitettu ohjelman kirjoittamista (5 h)
+- Testien kirjoittaminen on aloitettu. Testaus on tehty vain MapFile luokalle. (2 h)
 - Jatkettu opiskelua polunetsintä-algoritmeista ja toteutukseen soveltuvista tietorakenteista (4 h)
 - Dokumentaation päivittäminen (1.5 h)
 
@@ -17,7 +17,7 @@ Sovelluksen toteutus on aloitettu. Tässä vaiheessa vain karttojen luku ja muut
 ## Mitä olen oppinut?
 ----
 
-Jatkettu A* algoritmin opiskelua. Eri heuristiikkoijen vaikutusta A* toteutukseen. Sopivien tietorakenteiden opiskelua.
+Jatkettu A * algoritmin opiskelua. Eri heuristiikkoijen vaikutusta A* toteutukseen. Sopivien tietorakenteiden opiskelua.
 
 ## Lähteet
 ----
