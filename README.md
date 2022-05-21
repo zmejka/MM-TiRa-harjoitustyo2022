@@ -1,5 +1,7 @@
 # MM-TiRa harjotustyö 2022
 
+![GitHub Actions](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/workflows/CI/badge.svg)
+
 ----
 
 [Määrittely](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/maarittelydokumentti.md)
