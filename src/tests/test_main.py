@@ -12,6 +12,8 @@ class TestMain(unittest.TestCase):
         self.end_point = (60,60)
 
     def test_start_objects(self):
+        pygame.init()
         self.assertIsInstance(self.main.start(), tuple)
         self.assertIsInstance(self.main.start()[1], View)
+        pygame.quit()
 
