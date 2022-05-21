@@ -1,7 +1,10 @@
+import os
 import unittest
 import pygame
 from main import Main
 from ui.view import View
+
+os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 class TestMain(unittest.TestCase):
     def setUp(self):
