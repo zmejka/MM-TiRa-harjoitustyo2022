@@ -95,9 +95,9 @@ class View:
     def place_point(self, coordinates, point):
         ''' Näyttää kartalla käyttäjän määrittämä piste punaisena.
         '''
-        colors = {"Start":(255,0,0),"End":(0,205,0), "Map": (139,125,123), "Path": (145,44,238)}
+        colors = {"Start":(255,0,0),"End":(0,0,255), "Map": (139,125,123), "Path": (145,44,238)}
         if point == "Start" or point == "End":
-            rect = pygame.Rect(coordinates[0], coordinates[1], 2.5*SCALE, 2.5*SCALE)
+            rect = pygame.Rect(coordinates[0], coordinates[1], 3*SCALE, 3*SCALE)
         else: rect = pygame.Rect(coordinates[0], coordinates[1], 2*SCALE, 2*SCALE)
         pygame.draw.rect(self.screen, colors[point], rect)
     
@@ -108,7 +108,7 @@ class View:
             pygame.display.update()
         for i in results[1]:
             self.place_point((i[1]*SCALE,i[0]*SCALE), "Path")
-            pygame.time.delay(10)
+            pygame.time.delay(6)
             pygame.display.update()
 
 class Button:
