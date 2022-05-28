@@ -1,6 +1,7 @@
 # MM-TiRa harjotustyö 2022
 
 ![GitHub Actions](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/zmejka/MM-TiRa-harjoitustyo2022/branch/master/graph/badge.svg?token=46FQUTXEF5)](https://codecov.io/gh/zmejka/MM-TiRa-harjoitustyo2022)
 
 ----
 
