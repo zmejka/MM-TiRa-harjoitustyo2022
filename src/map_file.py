@@ -21,7 +21,7 @@ class MapFile:
 
     def parameters(self):
         ''' Metodi kutsuu read_map() metodia ja muuttaa kartan matriisimuotoon.
-            Tiedostin ensimmäiset 4 riviä sisältävät otsikkotiedot sekä kartan
+            Tiedoston ensimmäiset 4 riviä sisältävät otsikkotiedot sekä kartan
             leveys- ja pituustiedot pikseleissä.
             Palauttaa:
             tuple : karttamatriisi, leveys, korkeus
