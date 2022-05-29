@@ -5,12 +5,15 @@
 
 ----
 
-[Määrittely](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/maarittelydokumentti.md)
+[Määrittelydokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/maarittelydokumentti.md)
+
+[Testausdokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/testausdokumentti.md)
 
 [Viikko 1 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko1_raportti.md)
 
-
 [Viikko 2 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko2_raportti.md)
+
+[Viikko 3 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko3_raportti.md)
 
 ----
 
