@@ -52,7 +52,7 @@ class Main:
 
     def start(self):
         ''' Aloitustoiminnot. '''
-        file = "dr_dungeon.map"
+        file = "brc504d.map"
         map_file = MapFile(os.path.join(dirname, "maps", file))
         parameters = map_file.parameters()
         a_star = AStar(parameters[0])
