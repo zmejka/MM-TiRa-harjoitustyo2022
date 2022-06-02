@@ -32,6 +32,7 @@ class AStar:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
             self.expand_node(a_star, node, end)
+        print("Vanhempi lista: ", self.parent)
         results = self.get_path(start, end)
         time_end = time.time()
         print("Aika:", time_end-time_start)
@@ -51,16 +52,6 @@ class AStar:
                     f_value = g_value + a_star.euclidean(position, end)
                     self.open_queue.add_to_queue((position, f_value))
                     self.parent[position] = node[0]
-
-    def check_open_queue(self, position, f_value):
-        open_queue = self.open_queue.get_queue()
-        if not open_queue:
-            return False
-        for i in open_queue:
-            if position == i[0]:
-                if i[1] <= f_value:
-                    return True
-        return False
 
     def get_path(self, start, end):
         self.path.append(end)
