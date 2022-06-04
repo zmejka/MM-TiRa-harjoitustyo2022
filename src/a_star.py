@@ -1,8 +1,24 @@
+''' A* - algorithm
+    Args:
+    DIRECTIONS : 8 suunnan siirtymäkoordinaatit
+'''
+
 import time
 from min_queue import Queue
 from algorithm_core import AlgorithmCore
 
+DIRECTIONS = [(1,1),(1,-1),(1,0),(0,1),(0,-1),(-1,0),(-1,1),(-1,-1)]
+
 class AStar:
+    ''' Args:
+            map : karttadata matriisimuodossa
+            open_queue : avoin-lista tarkistettavia ruutuja
+            clesed_list : lista ruutuja, jotka on jo tarkastettu
+            path : polku alkuruudusta kohderuutuun
+            parent : lista vanhempiruutuja polkun rakentamista varten
+            cost : lista, johon on tallennettu etäisyydet alkuruudusta ruutuun
+            ready : kohderuutu on loytynyt
+            '''
     def __init__(self, data):
         self.map = data
         self.open_queue = Queue()
@@ -10,10 +26,14 @@ class AStar:
         self.path = []
         self.parent = {}
         self.cost = {}
-        self.directions = [(1,1),(1,-1),(1,0),(0,1),(0,-1),(-1,0),(-1,1),(-1,-1)]
         self.ready = False
 
     def a_star(self, start, end):
+        ''' A* algoritmin päätoiminto:
+        Args:
+            start : alkuruutu
+            end : kohderuutu
+        '''
         time_start = time.time()
         a_star = AlgorithmCore(self.map)
         self.parent[start] = None
@@ -32,14 +52,19 @@ class AStar:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
             self.expand_node(a_star, node, end)
-        print("Vanhempi lista: ", self.parent)
         results = self.get_path(start, end)
         time_end = time.time()
         print("Aika:", time_end-time_start)
         return (self.parent, results)
 
     def expand_node(self, a_star, node, end):
-        for direction in self.directions:
+        ''' Skannataan 8 suuntaa.
+        Args:
+            a_star : algoritmi
+            node : tarkastettava ruutu
+            end : kohderuutu
+        '''
+        for direction in DIRECTIONS:
             position = (node[0][0]+direction[0], node[0][1]+direction[1])
             if position == end:
                 self.parent[position] = node[0]

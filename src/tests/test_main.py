@@ -8,7 +8,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 class TestMain(unittest.TestCase):
     def setUp(self):
-        self.main = Main()
+        self.main = Main(1,1)
         self.width = 120
         self.height = 120
         self.start_point = (10,10)

@@ -108,7 +108,7 @@ class View:
             pygame.display.update()
         for i in results[1]:
             self.place_point((i[1]*SCALE,i[0]*SCALE), "Path")
-            pygame.time.delay(6)
+            pygame.time.delay(4)
             pygame.display.update()
 
 class Button:
