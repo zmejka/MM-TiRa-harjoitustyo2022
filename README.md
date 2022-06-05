@@ -38,7 +38,7 @@ Ohjelma kysyy kommentorivin syötteet karttanumerolle (1-10) ja algoritmille (1-
 ![Kuva1](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/vko4_ohje1.png)
 ![Kuva2](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/vko4_ohje2.png)
 
- Alkupisteen resetointia ja kartan resetointia ei vielä toteutettu. Tämän vuoksi, jos halua resetoida kartan, ohjelman tässä vaiheessa on käynnistävä uudelleen :( . 
+ Alkupisteen resetointia ja kartan resetointia ei vielä toteutettu. Tämän vuoksi, jos halua resetoida kartan, ohjelman tässä vaiheessa on käynnistävä uudelleen. Myös heuritikoiden vaihtaminen ei ole mahdollista. :( . 
 
 2. Testaus
 
