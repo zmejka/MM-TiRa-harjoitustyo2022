@@ -9,6 +9,8 @@
 
 [Testausdokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/testausdokumentti.md)
 
+[Toteutusdokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/toteutusdokumentti.md)
+
 [Viikko 1 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko1_raportti.md)
 
 [Viikko 2 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko2_raportti.md)
