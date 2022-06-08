@@ -44,7 +44,7 @@ class AStar:
                 break
             node = self.open_queue.remove_from_queue()
             if node[0] == end:
-                result_path = self.get_path(start, end)
+                result_path = a_star.get_path(start, end, self.parent)
                 time_end = time.time()
                 print("Aika:", time_end-time_start)
                 return (self.parent, result_path)
@@ -52,7 +52,7 @@ class AStar:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
             self.expand_node(a_star, node, end)
-        results = self.get_path(start, end)
+        results = a_star.get_path(start, end, self.parent)
         time_end = time.time()
         print("Aika:", time_end-time_start)
         return (self.parent, results)
@@ -77,14 +77,3 @@ class AStar:
                     f_value = g_value + a_star.euclidean(position, end)
                     self.open_queue.add_to_queue((position, f_value))
                     self.parent[position] = node[0]
-
-    def get_path(self, start, end):
-        self.path.append(end)
-        node = self.path[-1]
-        while self.parent[node] is not None:
-            if self.path[-1] == start:
-                break
-            self.path.append(self.parent.pop(self.path[-1]))
-            node = self.path[-1]
-        reversed_path = self.path[::-1]
-        return reversed_path
