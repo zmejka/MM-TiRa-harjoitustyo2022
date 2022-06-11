@@ -34,6 +34,7 @@ class Jps:
         self.cost = {}
         self.ready = False
         self.end = (0,0)
+        self.start = (0,0)
         self.jps_core = AlgorithmCore(self.map)
 
     def jps(self, start, end):
@@ -42,58 +43,57 @@ class Jps:
             start : alkuruutu
             end : kohderuutu
         '''
-        time_start = time.time()    # aloitusaika
+        time_start = time.time() # aloitusaika
         self.end = end
-        self.parent[start] = None       # alkuruudun ja alkuhinnan lisäykset listaan
+        self.start = start
+        self.parent[start] = None # alkuruudun ja alkuhinnan lisäykset listaan
         self.cost[start] = 0
-        self.open_queue.add_to_queue((start, 0))    # alkusolu lusätty avoimeen listaan
-        print("Koordinaatit: ", start, end)
+        self.open_queue.add_to_queue((start, 0)) # alkusolu lusätty avoimeen listaan
 
         while not self.open_queue.is_empty():
             if self.ready:
                 break
-            node = self.open_queue.remove_from_queue()  # seuraava tarkastettava ruutu poistetaan listalta
-            print(node)
-            if node[0] == end:      # kohderuutu on löytynyt
-                result_path = self.jps.get_path(start, self.end, self.parent)
-                time_end = time.time()      # lopetusaika
+            node = self.open_queue.remove_from_queue() # seuraava tarkastettava ruutu poistetaan listalta
+            if node[0] == end: # kohderuutu on löytynyt
+                result_path = self.jps_core.get_path(start, self.end, self.parent)
+                time_end = time.time() # lopetusaika
                 print("Aika:", time_end-time_start)
                 return (self.parent, result_path)
-            if node[0] in self.close_list:      # ruutu on jo tarkastettu
+            if node[0] in self.close_list: # ruutu on jo tarkastettu
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
-            self.expand_node(node)     #kutsutaan laajennusmetodi
+            self.expand_node(node) # kutsutaan laajennusmetodi
         time_end = time.time()
-        print("Aika:", time_end-time_start)     # lasketaan kokonaisaika, joka on mennyt algoritmin toimintaan
-        print(self.open_queue.get_queue(), self.ready)
-        results = self.jps_core.get_path(start, self.end, self.parent)
-
-        return (self.parent, results)
+        print("Aika:", time_end-time_start) # lasketaan kokonaisaika, joka on mennyt algoritmin toimintaan
+        if self.ready:
+            results = self.jps_core.get_path(start, self.end, self.parent)
+            return (self.parent, results)
+        return "Polkua ei löytynyt!"
 
     def expand_node(self, node):
         ''' Skannataan 8 suuntaa. '''
         for direction in DIRECTIONS:
             distance = self.cost[node[0]]
-            scan = self.jump(node, distance, direction)
-            print("Palautettu:", scan)
+            if direction[0]!=0 and direction[1]!=0:
+                scan = self.diag_jump(node, distance, direction)
+            else:
+                scan = self.hor_ver_jump(node, distance,direction)
             if scan is None or scan in self.close_list:
                 continue
-
             if self.ready:
                 self.parent[self.end] = node[0]
                 self.new_jump_point((scan[0], 1), node)
-
             self.new_jump_point(scan, node)
-    
+
     def new_jump_point(self, node, parent_node):
         g_value = node[1]
-        if node[0] not in self.cost or g_value < self.cost[node[0]]:        # laskenta vastaa A* algoritmia
+        if node[0] not in self.cost or g_value < self.cost[node[0]]: # laskenta vastaa A* algoritmia
             self.cost[node[0]] = g_value
-            f_value = g_value + self.jps_core.euclidean(node[0], self.end)
-            self.open_queue.add_to_queue((node[0], f_value))
+            f_value = g_value + self.jps_core.diagonal(node[0], self.end)
             self.parent[node[0]] = parent_node[0]
+            self.open_queue.add_to_queue((node[0], f_value))
 
-    def jump(self, node, distance, direc):
+    def diag_jump(self, node, distance, direc):
         ''' Horisontaalinen ja vertikaalinen skannaus:
         Args:
             node : tarkistettava ruutu
@@ -102,40 +102,38 @@ class Jps:
         '''
         next_x = node[0][0]+direc[0]
         next_y = node[0][1]+direc[1]
-        dist = distance + COST
-        if self.map[next_x][next_y] != '.':
+        dist = distance + DIAG_COST
+        if self.map[next_x][next_y] != '.' or (next_x,next_y) in self.close_list: # skannaus päätyy esteeseen
             return None
-        if (next_x,next_y) == self.end:     # skannaus päätyy kohderuutuun
-            print("loppusolu")
+        if (next_x,next_y) == self.end: # skannaus päätyy kohderuutuun
             self.ready = True
             return (next_x,next_y), dist
-        if self.map[next_x][next_y] == '.':     # seuraava ruutu on avoin kulku
+        if self.map[next_x][next_y] == '.': # seuraava ruutu on avoin kulku
             if direc[0] != 0 and direc[1] != 0:     # diagonal scan
-                dist = distance + DIAG_COST
-                if self.map[next_x-direc[0]][next_y]!='.' and self.map[next_x-direc[0]][next_y+direc[1]]=='.' or \
-                    self.map[next_x][next_y-direc[1]]!='.' and self.map[next_x+direc[0]][next_y-direc[1]]=='.' or \
-                    self.map[next_x][next_y+direc[1]]!='.' and self.map[next_x+direc[0]][next_y]=='.':
+                if self.map[node[0][0]][next_y]!='.' and self.map[node[0][0]][next_y+direc[1]]=='.' or \
+                    self.map[next_x][node[0][1]]!='.' and self.map[next_x+direc[0]][node[0][1]]=='.':
                     return (next_x,next_y),dist
-                if self.jump(((next_x+direc[0],next_y),0), dist, (direc[0],0)) != None or \
-                    self.jump(((next_x,next_y+direc[1]),0), dist, (0, direc[1])) != None:
+                if self.hor_ver_jump(((next_x,next_y),0), dist, (direc[0],0)) is not None or \
+                    self.hor_ver_jump(((next_x,next_y),0), dist, (0, direc[1])) is not None:
                     return (next_x,next_y),dist
-            else:
-                if direc[1] == 0:           # horisontaalinen skannaus
-                    if self.map[next_x][next_y-1]!='.' and self.map[next_x+direc[0]][next_y-1]=='.' or \
-                        self.map[next_x][next_y+1]!='.' and self.map[next_x+direc[0]][next_y+1]=='.':    # jump point
-                        return (next_x,next_y),dist
-                if direc[0] == 0:           # vertikaalinen skannaus
-                    if self.map[next_x-1][next_y]!='.' and self.map[next_x-1][next_y+direc[1]]=='.' or \
-                        self.map[next_x+1][next_y]!='.' and self.map[next_x+1][next_y+direc[1]]=='.':    # jump point
-                        return (next_x,next_y),dist
-        return self.jump(((next_x,next_y),0), dist, direc)
-    
-    def direction_choise(self, direction):
-        if direction[0]+direction[1] == 2:
-            return [(1,0),(0,1)]
-        elif direction[0]+direction[1] == -2:
-            return [(-1,0),(0,-1)]
-        elif direction == (-1,1):
-            return [(-1,0), (0,1)]
-        else:
-            return [(1,0), (0,-1)]
+        return self.diag_jump(((next_x,next_y),0), dist, direc)
+
+    def hor_ver_jump(self, node, distance, direc):
+        next_x = node[0][0]+direc[0]
+        next_y = node[0][1]+direc[1]
+        dist = distance + COST
+        if self.map[next_x][next_y] != '.' or (next_x,next_y) in self.close_list: # skannaus päätyy esteeseen
+            return None
+        if (next_x,next_y) == self.end: # skannaus päätyy kohderuutuun
+            self.ready = True
+            return (next_x,next_y), dist
+        if self.map[next_x][next_y] == '.': # seuraava ruutu on avoin kulku
+            if direc[1] == 0: # horisontaalinen skannaus
+                if self.map[next_x][next_y-1]!='.' and self.map[next_x+direc[0]][next_y-1]=='.' or \
+                    self.map[next_x][next_y+1]!='.' and self.map[next_x+direc[0]][next_y+1]=='.': # jump point
+                    return (next_x,next_y),dist
+            if direc[0] == 0: # vertikaalinen skannaus
+                if self.map[next_x-1][next_y]!='.' and self.map[next_x-1][next_y+direc[1]]=='.' or \
+                    self.map[next_x+1][next_y]!='.' and self.map[next_x+1][next_y+direc[1]]=='.': # jump point
+                    return (next_x,next_y),dist
+        return self.hor_ver_jump(((next_x,next_y),0), dist, direc)

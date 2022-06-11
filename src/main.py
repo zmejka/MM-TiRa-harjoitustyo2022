@@ -55,8 +55,10 @@ class Main:
             results = objects[6].a_star(start_c, end_c)
         else:
             results = objects[6].jps(start_c, end_c)
-
-        objects[1].update_map(results)
+        if isinstance(results, str):
+            print (results)
+        else:
+            objects[1].update_map(results)
 
         running = True
         while running:

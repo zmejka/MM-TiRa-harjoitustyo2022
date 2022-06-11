@@ -16,8 +16,8 @@ class MapFile:
         try:
             with open(map_file, "r", encoding="utf-8") as map_data:
                 return map_data.read().splitlines()
-        except:
-            raise SystemExit
+        except Exception as exc:
+            raise SystemExit from exc
 
     def parameters(self):
         ''' Metodi kutsuu read_map() metodia ja muuttaa kartan matriisimuotoon.

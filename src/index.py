@@ -1,13 +1,11 @@
 from main import Main
 
-''' Sovelluksen käynnistys. 
-    Args: 
+''' Sovelluksen käynnistys.
+    Args:
         map_file : luku välillä 1 - 10, joka indikoi minkä kartta otetaan listalta.
         used_algorithm : luku välillä 1 - 2, 1 = A* ja 2 = JPS,
 '''
-
 def main():
-
     try:
         map_file = int(input("Anna kartan numero (1-10): "))
         if map_file not in range(1, 11):
@@ -24,9 +22,7 @@ def main():
     except Exception:
         print("Väärä muoto tai jokin meni pieleen. Valittu algoritmi A*. ")
         used_algorithm = 1
-
     run = Main(map_file, used_algorithm)
-
     run.main()
 
 if __name__ == '__main__':

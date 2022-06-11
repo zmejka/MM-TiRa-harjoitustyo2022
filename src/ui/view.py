@@ -104,11 +104,15 @@ class View:
     def update_map(self, results):
         for i in results[0]:
             self.place_point((i[1]*SCALE,i[0]*SCALE), "Map")
-            pygame.time.delay(10)
-            pygame.display.update()
-        for i in results[1]:
-            self.place_point((i[1]*SCALE,i[0]*SCALE), "Path")
             pygame.time.delay(4)
+            pygame.display.update()
+        for i, j in enumerate(results[1]):
+            if i == 0:
+                self.place_point((j[1]*SCALE,j[0]*SCALE), "Path")
+            else:
+                coord = results[1][i-1]
+                pygame.draw.line(self.screen, (145,44,238), (j[1]*SCALE,j[0]*SCALE),(coord[1]*SCALE, coord[0]*SCALE), SCALE*2)
+            pygame.time.delay(10)
             pygame.display.update()
 
 class Button:

@@ -26,22 +26,21 @@ class AlgorithmCore:
         y_value = abs(start_node[0] - target_node[0])
         x_value = abs(start_node[1] - target_node[1])
         return y_value+x_value
-    
+
     def get_path(self, start, end, parent):
         ''' Muodostetaan polku alkuruudusta loppuruutuun.
             Args:
                 start : alkuruutu
                 end : loppuruutu
-                parent : lista koordinateista, jossa toinen pari on ruutu itse ja toinen ruudun vanhempi 
+                parent : lista koordinateista,
+                    jossa toinen pari on ruutu itse ja toinen ruudun vanhempi
         '''
         self.path.append(end)
         node = self.path[-1]
         while parent[node] is not None:
-            print("Path: ", node)
             if self.path[-1] == start:
                 break
             self.path.append(parent.pop(self.path[-1]))
-            print(self.path)
             node = self.path[-1]
         reversed_path = self.path[::-1]
         return reversed_path
