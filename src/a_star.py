@@ -42,20 +42,22 @@ class AStar:
                 break
             node = self.open_queue.remove_from_queue()
             if node[0] == end:
-                result_path = self.a_star_core.get_path(start, end, self.parent)
+                result_path = self.a_star_core.get_path(end, self.parent)
                 time_end = time.time()
                 print("Aika:", time_end-time_start)
                 return (self.parent, result_path)
             if node[0] in self.close_list:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
-            self.expand_node(self.a_star, node, end)
-        results = self.a_star_core.get_path(end, self.parent)
+            self.expand_node(node, end)
         time_end = time.time()
         print("Aika:", time_end-time_start)
-        return (self.parent, results)
+        if self.ready:
+            results = self.a_star_core.get_path(end, self.parent)
+            return (self.parent, results)
+        return "Polkua ei löytynyt!"
 
-    def expand_node(self, a_star, node, end):
+    def expand_node(self, node, end):
         ''' Skannataan 8 suuntaa.
         Args:
             a_star : algoritmi
