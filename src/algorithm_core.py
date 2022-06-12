@@ -27,7 +27,7 @@ class AlgorithmCore:
         x_value = abs(start_node[1] - target_node[1])
         return y_value+x_value
 
-    def get_path(self, start, end, parent):
+    def get_path(self, end, parent):
         ''' Muodostetaan polku alkuruudusta loppuruutuun.
             Args:
                 start : alkuruutu

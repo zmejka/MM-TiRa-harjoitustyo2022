@@ -52,7 +52,7 @@ class Jps:
                 break
             node = self.open_queue.remove_from_queue() # seuraava tarkastettava ruutu poistetaan listalta
             if node[0] == end: # kohderuutu on löytynyt
-                result_path = self.jps_core.get_path(start, self.end, self.parent)
+                result_path = self.jps_core.get_path(self.end, self.parent)
                 time_end = time.time() # lopetusaika
                 print("Aika:", time_end-time_start)
                 return (self.parent, result_path)
@@ -63,7 +63,7 @@ class Jps:
         time_end = time.time()
         print("Aika:", time_end-time_start) # lasketaan kokonaisaika, joka on mennyt algoritmin toimintaan
         if self.ready:
-            results = self.jps_core.get_path(start, self.end, self.parent)
+            results = self.jps_core.get_path(self.end, self.parent)
             return (self.parent, results)
         return "Polkua ei löytynyt!"
 

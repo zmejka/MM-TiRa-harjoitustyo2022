@@ -56,11 +56,11 @@ class TestAlgorithmCore(unittest.TestCase):
         start = (1,1)
         end = (3,4)
         parent = {(1,1): None, (2,1): (1,1), (2,3): (2,1), (3,4): (2,3)}
-        self.assertEqual(self.test_core.get_path(start, end, parent),[(1,1),(2,1),(2,3),(3,4)])
+        self.assertEqual(self.test_core.get_path(end, parent),[(1,1),(2,1),(2,3),(3,4)])
     
     def test_path_start_point_missing(self):
         start = (0,1)
         end = (3,4)
         parent = {(1,1): None, (2,1): (0,1), (2,3): (2,1), (3,4): (2,3)}
-        self.assertRaises(KeyError, lambda: self.test_core.get_path(start, end, parent))        
+        self.assertRaises(KeyError, lambda: self.test_core.get_path(end, parent))        
 

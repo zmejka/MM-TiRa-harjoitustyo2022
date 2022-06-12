@@ -13,8 +13,7 @@ class AStar:
     ''' Args:
             map : karttadata matriisimuodossa
             open_queue : avoin-lista tarkistettavia ruutuja
-            clesed_list : lista ruutuja, jotka on jo tarkastettu
-            path : polku alkuruudusta kohderuutuun
+            closed_list : lista ruutuja, jotka on jo tarkastettu
             parent : lista vanhempiruutuja polkun rakentamista varten
             cost : lista, johon on tallennettu etäisyydet alkuruudusta ruutuun
             ready : kohderuutu on loytynyt
@@ -23,10 +22,10 @@ class AStar:
         self.map = data
         self.open_queue = Queue()
         self.close_list = {}
-        self.path = []
         self.parent = {}
         self.cost = {}
         self.ready = False
+        self.a_star_core = AlgorithmCore(self.map)
 
     def a_star(self, start, end):
         ''' A* algoritmin päätoiminto:
@@ -35,7 +34,6 @@ class AStar:
             end : kohderuutu
         '''
         time_start = time.time()
-        a_star = AlgorithmCore(self.map)
         self.parent[start] = None
         self.cost[start] = 0
         self.open_queue.add_to_queue((start, 0))
@@ -44,15 +42,15 @@ class AStar:
                 break
             node = self.open_queue.remove_from_queue()
             if node[0] == end:
-                result_path = a_star.get_path(start, end, self.parent)
+                result_path = self.a_star_core.get_path(start, end, self.parent)
                 time_end = time.time()
                 print("Aika:", time_end-time_start)
                 return (self.parent, result_path)
             if node[0] in self.close_list:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
-            self.expand_node(a_star, node, end)
-        results = a_star.get_path(start, end, self.parent)
+            self.expand_node(self.a_star, node, end)
+        results = self.a_star_core.get_path(end, self.parent)
         time_end = time.time()
         print("Aika:", time_end-time_start)
         return (self.parent, results)
@@ -71,9 +69,9 @@ class AStar:
                 self.ready = True
                 break
             if self.map[position[0]][position[1]] == '.':
-                g_value = self.cost[node[0]] + a_star.euclidean(node[0], position)
+                g_value = self.cost[node[0]] + self.a_star_core.euclidean(node[0], position)
                 if position not in self.cost or g_value < self.cost[position]:
                     self.cost[position] = g_value
-                    f_value = g_value + a_star.euclidean(position, end)
+                    f_value = g_value + self.a_star_core.euclidean(position, end)
                     self.open_queue.add_to_queue((position, f_value))
                     self.parent[position] = node[0]
