@@ -38,8 +38,6 @@ class AlgorithmCore:
         self.path.append(end)
         node = self.path[-1]
         while parent[node] is not None:
-            if self.path[-1] == start:
-                break
             self.path.append(parent.pop(self.path[-1]))
             node = self.path[-1]
         reversed_path = self.path[::-1]

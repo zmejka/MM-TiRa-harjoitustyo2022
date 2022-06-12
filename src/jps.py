@@ -29,12 +29,10 @@ class Jps:
         self.map = data
         self.open_queue = Queue()
         self.close_list = {}
-        self.path = []
         self.parent = {}
         self.cost = {}
         self.ready = False
         self.end = (0,0)
-        self.start = (0,0)
         self.jps_core = AlgorithmCore(self.map)
 
     def jps(self, start, end):
@@ -45,7 +43,6 @@ class Jps:
         '''
         time_start = time.time() # aloitusaika
         self.end = end
-        self.start = start
         self.parent[start] = None # alkuruudun ja alkuhinnan lisäykset listaan
         self.cost[start] = 0
         self.open_queue.add_to_queue((start, 0)) # alkusolu lusätty avoimeen listaan
