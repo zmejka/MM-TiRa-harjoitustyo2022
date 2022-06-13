@@ -29,3 +29,4 @@ class TestMain(unittest.TestCase):
     
     def test_start_objects_a_star(self):
         self.assertIsInstance(self.main.start()[6], AStar)
+
