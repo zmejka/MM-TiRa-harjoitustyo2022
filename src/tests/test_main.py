@@ -10,12 +10,13 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 class TestMain(unittest.TestCase):
     def setUp(self):
-        self.main = Main(1,1)
+        self.main = Main(1,1,2)
         self.width = 120
         self.height = 120
         self.start_point = (10,10)
         self.end_point = (60,60)
         self.algorithm = 1
+        self.heuristic = 2
 
     def test_start_objects(self):
         pygame.init()

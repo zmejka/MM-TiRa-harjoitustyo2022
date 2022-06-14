@@ -22,44 +22,47 @@ class TestAlgorithmCore(unittest.TestCase):
                                                 ['@','.','.','.','@'],
                                                 ['@','@','@','@','@']])
 
-    def test_euclidean_correct_value(self):
+    def test_method_euclidean_correct_value(self):
         start = (1,1)
         end = (5,4)
-        self.assertEqual(self.test_core.euclidean(start,end), 5)
+        self.assertEqual(self.test_core.heuristic_method(start,end, 2), 5)        
     
-    def test_euclidean_incorrect(self):
+    def test_method_euclidean_incorrect(self):
         start = (1,1)
         end = (5,4)
-        self.assertNotEqual(self.test_core.euclidean(start,end), 5.1)        
+        self.assertNotEqual(self.test_core.heuristic_method(start,end, 2), 5.1)        
     
-    def test_manhattan_correct_value(self):
+    def test_method_manhattan_correct_value(self):
         start = (1,1)
         end = (5,4)
-        self.assertEqual(self.test_core.manhattan(start,end), 7)
+        self.assertEqual(self.test_core.heuristic_method(start,end,1), 7)
 
-    def test_manhattan_incorrect(self):
+    def test_method_manhattan_incorrect(self):
         start = (1,1)
         end = (5,4)
-        self.assertNotEqual(self.test_core.manhattan(start,end), 7.1)
+        self.assertNotEqual(self.test_core.heuristic_method(start,end,1), 7.1)
     
-    def test_diagonal_correct_value(self):
+    def test_method_diagonal_correct_value(self):
         start = (1,1)
         end = (3,4)
-        self.assertEqual(round(self.test_core.diagonal(start,end),3), 3.828)
+        self.assertEqual(round(self.test_core.heuristic_method(start,end, 3),3), 3.828)
 
-    def test_diagonal_incorrect_(self):
+    def test__method_diagonal_incorrect_(self):
         start = (1,1)
         end = (3,4)
-        self.assertNotEqual(self.test_core.diagonal(start,end), 3.828)
+        self.assertNotEqual(self.test_core.heuristic_method(start,end, 3), 3.828)
+    
+    def test_method_jps(self):
+        start = (1,1)
+        end = (3,4)
+        self.assertEqual(round(self.test_core.heuristic_method(start,end, 0),3), 3.828)        
     
     def test_path_correct(self):
-        start = (1,1)
         end = (3,4)
         parent = {(1,1): None, (2,1): (1,1), (2,3): (2,1), (3,4): (2,3)}
         self.assertEqual(self.test_core.get_path(end, parent),[(1,1),(2,1),(2,3),(3,4)])
     
     def test_path_start_point_missing(self):
-        start = (0,1)
         end = (3,4)
         parent = {(1,1): None, (2,1): (0,1), (2,3): (2,1), (3,4): (2,3)}
         self.assertRaises(KeyError, lambda: self.test_core.get_path(end, parent))        

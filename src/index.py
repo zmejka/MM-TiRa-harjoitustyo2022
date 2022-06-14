@@ -22,7 +22,18 @@ def main():
     except Exception:
         print("Väärä muoto tai jokin meni pieleen. Valittu algoritmi A*. ")
         used_algorithm = 1
-    run = Main(map_file, used_algorithm)
+    if used_algorithm == 1:
+        try:
+            heuristic = int(input("Valistse heuristiikka. 1 = Manhattan, 2 = Euclidean, 3 = Diagonal: "))
+            if heuristic not in [1,2,3]:
+                print("Väärä koodi. Valittu heuriistikka - Euclidean. ")
+                heuristic = 2
+        except Exception:
+            print("Väärä koodi. Valittu heuriistikka - Euclidean. ")
+            heuristic = 2
+    else:
+        heuristic = 0
+    run = Main(map_file, used_algorithm, heuristic)
     run.main()
 
 if __name__ == '__main__':

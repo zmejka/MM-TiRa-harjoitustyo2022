@@ -26,9 +26,10 @@ class Main:
             end_point : kohdekoordinaatit
     '''
 
-    def __init__(self, map_data, algorithm):
+    def __init__(self, map_data, algorithm, heuristic):
         self.map_data = int(map_data)
         self.algorithm = int(algorithm)
+        self.heuristic = int(heuristic)
         self._width = 40
         self._height = 120
         self.start_point = (0,0)
@@ -52,7 +53,7 @@ class Main:
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
         if self.algorithm == 1:
-            results = objects[6].a_star(start_c, end_c)
+            results = objects[6].a_star(start_c, end_c, self.heuristic)
         else:
             results = objects[6].jps(start_c, end_c)
         if isinstance(results, str):
@@ -65,7 +66,6 @@ class Main:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pylint: disable=no-member
                     raise SystemExit
-
         pygame.display.update()
 
     def start(self):
