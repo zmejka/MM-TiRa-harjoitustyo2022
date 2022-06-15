@@ -26,8 +26,8 @@ class AStar:
         self.cost = {}
         self.ready = False
         self.a_star_core = AlgorithmCore(self.map)
-        self.open_counter = 0
-        self.close_counter = 0
+        #self.open_counter = 0
+        #self.close_counter = 0
 
     def a_star(self, start, end, heuristic):
         ''' A* algoritmin päätoiminto:
@@ -48,18 +48,18 @@ class AStar:
                 result_path = self.a_star_core.get_path(end, self.parent)
                 time_end = time.time()
                 print("Aika:", time_end-time_start)
-                print("Lisätty avoimelle listalle: ", self.open_counter)
-                print("Tarkistettu pisteittä: ", self.close_counter)
+                #print("Lisätty avoimelle listalle: ", self.open_counter)
+                #print("Tarkistettu pisteittä: ", self.close_counter)
                 return (self.parent, result_path)
             if node[0] in self.close_list:
                 continue
-            self.close_counter = self.close_counter + 1
+            #self.close_counter = self.close_counter + 1
             self.close_list[node[0]] = self.cost[node[0]]
             self.expand_node(node, end, heuristic)
         time_end = time.time()
         print("Aika:", time_end-time_start)
-        print("Lisätty avoimelle listalle: ", self.open_counter)
-        print("Tarkistettu pisteittä: ", self.close_counter)
+        #print("Lisätty avoimelle listalle: ", self.open_counter)
+        #print("Tarkistettu pisteittä: ", self.close_counter)
         if self.ready:
             results = self.a_star_core.get_path(end, self.parent)
             return (self.parent, results)
@@ -80,10 +80,11 @@ class AStar:
                 self.ready = True
                 break
             if self.map[position[0]][position[1]] == '.':
-                g_value = self.cost[node[0]] + self.a_star_core.heuristic_method(node[0], position, heuristic)
+                g_value = self.cost[node[0]] + self.a_star_core.heuristic_method(node[0], \
+                    position, heuristic)
                 if position not in self.cost or g_value < self.cost[position]:
                     self.cost[position] = g_value
                     f_value = g_value + self.a_star_core.heuristic_method(position, end, heuristic)
-                    self.open_counter = self.open_counter + 1
+                    #self.open_counter = self.open_counter + 1
                     self.open_queue.add_to_queue((position, f_value))
                     self.parent[position] = node[0]

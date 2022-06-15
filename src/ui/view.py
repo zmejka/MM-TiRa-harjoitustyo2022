@@ -30,7 +30,7 @@ class View:
                 color = COLOR_MAP[map_view[i][j]]
                 rect = pygame.Rect(j*SCALE,i*SCALE,SCALE, SCALE)
                 pygame.draw.rect(self.screen, color, rect)
-    
+
     def get_points(self, objects):
         start_button = Button("  Aseta aloituspiste  ", (30, objects[3]-80))
         end_button = Button("  Aseta kohdepiste  ", (30, objects[3]-40))
@@ -90,7 +90,7 @@ class View:
         if color == (238,233,233,255):
             view.place_point(position, point)
             pygame.display.update()
-            return True  
+            return True
 
     def place_point(self, coordinates, point):
         ''' Näyttää kartalla käyttäjän määrittämä piste punaisena.
@@ -100,7 +100,7 @@ class View:
             rect = pygame.Rect(coordinates[0], coordinates[1], 3*SCALE, 3*SCALE)
         else: rect = pygame.Rect(coordinates[0], coordinates[1], 2*SCALE, 2*SCALE)
         pygame.draw.rect(self.screen, colors[point], rect)
-    
+
     def update_map(self, results):
         for i in results[0]:
             self.place_point((i[1]*SCALE,i[0]*SCALE), "Map")
@@ -122,7 +122,7 @@ class Button:
         self.font = pygame.font.SysFont("Arial", 18)
         self.name = name
         self.set_name(name)
-    
+
     def set_name(self, new_name):
         self.text = self.font.render(new_name, True, (25,25,112,255))
         self.size = self.text.get_size()

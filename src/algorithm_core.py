@@ -9,18 +9,15 @@ class AlgorithmCore:
 
     def set_map(self, data):
         self.map_data = data
-    
+
     def heuristic_method(self, start_node, target_node, heuristic):
         y_value = abs(start_node[0] - target_node[0])
-        x_value = abs(start_node[1] - target_node[1])        
+        x_value = abs(start_node[1] - target_node[1])
         if heuristic == 1:
             return y_value+x_value
-        elif heuristic == 2:
-            h_value = sqrt(y_value**2+x_value**2)
-            return h_value
-        else:
-            h_value = (y_value+x_value) + (sqrt(2)-2)*(min(y_value,x_value))
-            return h_value
+        if heuristic == 2:
+            return sqrt(y_value**2+x_value**2)
+        return (y_value+x_value) + (sqrt(2)-2)*(min(y_value,x_value))
 
     def get_path(self, end, parent):
         ''' Muodostetaan polku alkuruudusta loppuruutuun.
