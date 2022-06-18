@@ -17,7 +17,7 @@ Jatkettu algoritmien vertaileva testausta.
 
 ![Results](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/vko6_tulokset.png)
 
-Käytetyt karttat ja reitit.
+Käytetyt kartat ja reitit.
 
 ![Kartta2](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta2.png)
 ![Kartta4](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta4.png)
