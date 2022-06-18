@@ -21,6 +21,8 @@
 
 [Viikko 5 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko5_raportti.md)
 
+[Viikko 6 raportti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/Viikko5_raportti.md)
+
 ----
 
 ### Asennus
