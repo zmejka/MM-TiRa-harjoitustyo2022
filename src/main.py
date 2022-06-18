@@ -52,8 +52,8 @@ class Main:
         points = objects[1].get_points(objects)
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
-        if self.algorithm == 1:
-            results = objects[6].a_star(start_c, end_c, self.heuristic)
+        if self.algorithm in (1, 3):
+            results = objects[6].a_star(start_c, end_c, self.heuristic, self.algorithm)
         else:
             results = objects[6].jps(start_c, end_c)
         if isinstance(results, str):
@@ -74,7 +74,7 @@ class Main:
         file = FILES[self.map_data-1]
         map_file = MapFile(os.path.join(dirname, "maps", file))
         parameters = map_file.parameters()
-        if self.algorithm == 1:
+        if self.algorithm in (1, 3):
             a_star = AStar(parameters[0])
         else:
             jps = Jps(parameters[0])
@@ -86,6 +86,6 @@ class Main:
         view = View(screen, scr_width, scr_height)
         view.initialize(parameters)
         pygame.display.update()
-        if self.algorithm == 1:
+        if self.algorithm in (1, 3):
             return (screen, view, scr_width, scr_height, parameters[2], parameters[1], a_star)
         return (screen, view, scr_width, scr_height, parameters[2], parameters[1], jps)

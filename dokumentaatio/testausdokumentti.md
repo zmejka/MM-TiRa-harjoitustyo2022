@@ -7,11 +7,25 @@ Ohjelmaa on testattu tässä vaiheessa vain yhdellä koneella, jossa on Linux Op
 
 ## Yksikkötestaus
 
-Tässä vaiheessa (viikko 3) testaus on vasta alkutekijöissä. Yksikkötestausta on tarkoitus parantaa viikon 4 palautukseen mennessä.
+Tässä vaiheessa (viikko 6) yksikkötestauskattavuus on  on tarkoitus parantaa viikon 4 palautukseen mennessä.
 
-![Coverage](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/coverage_vko3.png)
+![Coverage](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/coverage_vko6.png)
 
 ## Suorituskykytestaus
+
+Jatkettu algoritmien vertaileva testausta.
+
+![Results](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/vko6_tulokset.png)
+
+Käytetyt karttat ja reitit.
+![Kartta2](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta2.png)
+![Kartta4](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta4.png)
+![Kartta8](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta8.png)
+![Kartta3](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta3.png)
+
+Viikolla 3 tehdy heuristiikkatestaus.
+
+![Kartta1](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta1_vko3.png)
 
 Aloitettu toteuttamaan suorituskykytestausta. Koska tässä vaiheessa on käytössä vain yksi algoritmi, testaus tehtiin vertaamalla eri heuristiikojen vaikutusta suoritusaikoihin.
 

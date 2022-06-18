@@ -37,8 +37,8 @@ class Jps:
         self.end = (0,0)
         self.start = (0,0)
         self.jps_core = AlgorithmCore(self.map)
-        #self.open_counter = 0
-        #self.close_counter = 0
+        self.open_counter = 0
+        self.close_counter = 0
 
     def jps(self, start, end):
         ''' JPS algoritmin päätoiminto:
@@ -61,18 +61,18 @@ class Jps:
                 result_path = self.jps_core.get_path(self.end, self.parent)
                 time_end = time.time()
                 print("Aika:", time_end-time_start)
-                #print("Lisätty avoimelle listalle: ", self.open_counter)
-                #print("Tarkistettu pisteittä: ", self.close_counter)
+                print("Lisätty avoimelle listalle: ", self.open_counter)
+                print("Tarkistettu pisteittä: ", self.close_counter)
                 return (self.parent, result_path)
             if node[0] in self.close_list:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
-            #self.close_counter = self.close_counter + 1
+            self.close_counter = self.close_counter + 1
             self.expand_node(node)
         time_end = time.time()
         print("Aika:", time_end-time_start)
-        #print("Lisätty avoimelle listalle: ", self.open_counter)
-        #print("Tarkistettu pisteittä: ", self.close_counter)
+        print("Lisätty avoimelle listalle: ", self.open_counter)
+        print("Tarkistettu pisteittä: ", self.close_counter)
         if self.ready:
             results = self.jps_core.get_path(self.end, self.parent)
             return (self.parent, results)
@@ -100,7 +100,7 @@ class Jps:
             f_value = g_value + self.jps_core.heuristic_method(node[0], self.end, 0)
             self.parent[node[0]] = parent_node[0]
             self.open_queue.add_to_queue((node[0], f_value))
-            #self.open_counter = self.open_counter + 1
+            self.open_counter = self.open_counter + 1
 
     def diag_jump(self, node, distance, direc):
         ''' Horisontaalinen ja vertikaalinen skannaus:
