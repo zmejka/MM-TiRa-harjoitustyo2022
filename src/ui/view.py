@@ -30,7 +30,7 @@ class View:
                 color = COLOR_MAP[map_view[i][j]]
                 rect = pygame.Rect(j*SCALE,i*SCALE,SCALE, SCALE)
                 pygame.draw.rect(self.screen, color, rect)
-
+    
     def get_points(self, objects):
         start_button = Button("  Aseta aloituspiste  ", (30, objects[3]-80))
         end_button = Button("  Aseta kohdepiste  ", (30, objects[3]-40))
@@ -42,8 +42,8 @@ class View:
                 if event.type == pygame.QUIT:
                     raise SystemExit
                 if start_button.click_event(event):
-                    getting_point = True
-                    while getting_point:
+                    start_click = True
+                    while start_click:
                         for start_event in pygame.event.get():
                             if start_event.type == pygame.QUIT:
                                 break
@@ -54,10 +54,10 @@ class View:
                                     if self.get_coordinates(start_pos, objects[0], objects[1], "Start"):
                                         start_point = (start_pos[1],start_pos[0])
                                         start_button.set_name(f"  Aloituspiste: {start_point[0]}, {start_point[1]}  ")
-                                        getting_point = False
-                    getting_point = True
+                                        start_click = False
                 if end_button.click_event(event):
-                    while getting_point:
+                    end_click = True
+                    while end_click:
                         for end_event in pygame.event.get():
                             if end_event.type == pygame.QUIT:
                                 break
@@ -68,7 +68,7 @@ class View:
                                     if self.get_coordinates(end_pos, objects[0], objects[1], "End"):
                                         end_point = (end_pos[1],end_pos[0])
                                         end_button.set_name(f"  Kohdepiste: {end_point[0]}, {end_point[1]}  ")
-                                        getting_point = False
+                                        end_click = False
             start_button.show_button(objects[0], start_button)
             end_button.show_button(objects[0], end_button)
             pygame.display.update()
@@ -76,7 +76,7 @@ class View:
                 if end_point:
                     running = False
         return start_point, end_point
-
+    
     def get_coordinates(self, position, screen, view, point):
         ''' Aloitus-/kohdepisteen laittaminen kartalle.
             Tarkistetaan, että piste on hyväksytyllä alueella.

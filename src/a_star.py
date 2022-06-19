@@ -48,7 +48,7 @@ class AStar:
             if node[0] == end:
                 result_path = self.a_star_core.get_path(end, self.parent)
                 time_end = time.time()
-                print("Aika:", time_end-time_start)
+                print("Aika:", round((time_end-time_start), 3))
                 print("Lisätty avoimelle listalle: ", self.open_counter)
                 print("Tarkistettu pisteittä: ", self.close_counter)
                 return (self.parent, result_path)
@@ -58,7 +58,7 @@ class AStar:
             self.close_list[node[0]] = self.cost[node[0]]
             self.expand_node(node, end, heuristic, algorithm)
         time_end = time.time()
-        print("Aika:", time_end-time_start)
+        print("Aika:", round((time_end-time_start), 3))
         print("Lisätty avoimelle listalle: ", self.open_counter)
         print("Tarkistettu pisteittä: ", self.close_counter)
         if self.ready:

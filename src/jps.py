@@ -37,7 +37,7 @@ class Jps:
         self.end = (0,0)
         self.start = (0,0)
         self.jps_core = AlgorithmCore(self.map)
-        self.open_counter = 0
+        self.open_counter = 1
         self.close_counter = 0
 
     def jps(self, start, end):
@@ -60,7 +60,7 @@ class Jps:
             if node[0] == end:
                 result_path = self.jps_core.get_path(self.end, self.parent)
                 time_end = time.time()
-                print("Aika:", time_end-time_start)
+                print("Aika:", round((time_end-time_start), 3))
                 print("Lisätty avoimelle listalle: ", self.open_counter)
                 print("Tarkistettu pisteittä: ", self.close_counter)
                 return (self.parent, result_path)
@@ -70,7 +70,7 @@ class Jps:
             self.close_counter = self.close_counter + 1
             self.expand_node(node)
         time_end = time.time()
-        print("Aika:", time_end-time_start)
+        print("Aika:", round((time_end-time_start), 3))
         print("Lisätty avoimelle listalle: ", self.open_counter)
         print("Tarkistettu pisteittä: ", self.close_counter)
         if self.ready:
