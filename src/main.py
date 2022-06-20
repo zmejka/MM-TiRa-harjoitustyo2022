@@ -18,8 +18,8 @@ FILES = ["ca_cave.map",
          "lt_hangedman.map",
          "lt_undercitydungeon.map"]
 
-ALGORITHMS = {1:"A*", 2:"JPS", 3:"Dijkstra"}
-HEURISTICS = {0:"-" ,1:"Manhattan", 2:"Euclidean", 3:{"Diagonal"}}
+ALGORITHMS = {1:" A* ", 2:" JPS ", 3:" Dijkstra "}
+HEURISTICS = {0:" -- " ,1:" Manhattan ", 2:" Euclidean ", 3:" Diagonal "}
 
 class Main:
     ''' Args:
@@ -74,7 +74,7 @@ class Main:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # pylint: disable=no-member
                     raise SystemExit
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN: # pylint: disable=no-member
                     if reset_button.click_event(event):
                         pygame.quit()
                         self.main()
@@ -103,7 +103,7 @@ class Main:
         if self.algorithm in (1, 3):
             return (screen, view, scr_width, scr_height, parameters[2], parameters[1], a_star)
         return (screen, view, scr_width, scr_height, parameters[2], parameters[1], jps)
-    
+
     def get_map(self):
         map_file = input("Anna kartan numero (1-10): ")
         try:
@@ -113,7 +113,7 @@ class Main:
                 print("Jokin meni pieleen. Valittu kartta numero 1. ")
         except ValueError:
             print("Jokin meni pieleen. Valittu kartta numero 1. ")
-    
+
     def get_parameters(self):
         used_algorithm = input("Anna algoritmin koodi 1 = A*, 2 = JPS, 3 = Dijkstra: ")
         try:

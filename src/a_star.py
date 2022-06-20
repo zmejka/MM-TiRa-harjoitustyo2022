@@ -26,7 +26,7 @@ class AStar:
         self.cost = {}
         self.ready = False
         self.a_star_core = AlgorithmCore(self.map)
-        self.open_counter = 0
+        self.open_counter = 1
         self.close_counter = 0
 
     def a_star(self, start, end, heuristic, algorithm):
@@ -72,6 +72,8 @@ class AStar:
             a_star : algoritmi
             node : tarkastettava ruutu
             end : kohderuutu
+            algorithm : käytettävä algoritmi (A* tai Dijkstra)
+            heuristic : käytettävä heiristiikka
         '''
 
         for direction in DIRECTIONS:

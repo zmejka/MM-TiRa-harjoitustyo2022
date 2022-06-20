@@ -37,3 +37,16 @@ class TestAStar(unittest.TestCase):
         start = (1,1)
         end = (1,1)
         self.assertEqual(self.test_a_star.a_star(start,end,2,1)[1], [(1,1)])
+    
+    def test_no_path_available_close_list(self):
+        test_data = [['@','@','@','@','@'],
+                    ['@','.','.','.','@'],
+                    ['@','.','@','.','@'],
+                    ['@','.','@','.','@'],
+                    ['@','.','@','@','@'],
+                    ['@','.','.','.','@'],
+                    ['@','@','@','@','@']]
+        test_algorithm = AStar(test_data)
+        start = (1,3)
+        end = (5,3)
+        self.assertNotEqual(test_algorithm.a_star(start,end,2,1), "Polkua ei löytynyt!")

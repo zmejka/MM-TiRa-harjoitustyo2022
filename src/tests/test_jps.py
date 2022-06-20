@@ -53,3 +53,4 @@ class TestAStar(unittest.TestCase):
         start = (1,1)
         end = (1,1)
         self.assertEqual(self.test_jps.jps(start,end)[1], [(1,1)])
+    

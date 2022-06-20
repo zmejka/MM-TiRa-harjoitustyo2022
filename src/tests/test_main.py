@@ -1,5 +1,6 @@
 import os
 import unittest
+from unittest import mock
 from unittest.mock import patch
 import pygame
 from main import Main
@@ -32,23 +33,41 @@ class TestMain(unittest.TestCase):
     def test_start_objects_a_star(self):
         self.assertIsInstance(self.main.start()[6], AStar)
 
-    @patch('main.input', return_value="2")
-    def test_get_map(self, return_value):
-        self.main.get_map()
-        self.assertEqual(self.main.map_data, 2)
+    def test_get_map(self):
+        with mock.patch('main.input', return_value="2"):
+            self.main.get_map()
+            self.assertEqual(self.main.map_data, 2)
     
-    @patch('main.input', return_value1="22")
-    def test_get_map(self, return_value1):
-        self.main.get_map()
-        self.assertEqual(self.main.map_data, 1)
+    def test_get_parameters(self):
+        with mock.patch('main.input', side_effect=[1, 3]):
+            self.main.get_parameters()
+            self.assertEqual(self.main.algorithm, 1)
+            self.assertEqual(self.main.heuristic, 3)
     
-    @patch('main.input', return_value="f")
-    def test_get_map_wrong_value_replaced(self, return_value):
-        self.assertEqual(self.main.map_data, 1)
+    def test_get_map_wrong_value_replaced(self):
+        with mock.patch('main.input', return_value="f"):
+            self.main.get_map()
+            self.assertEqual(self.main.map_data, 1)
     
+    def test_get_map_value_to_big(self):
+        with mock.patch('main.input', return_value="22"):
+            self.main.get_map()
+            self.assertEqual(self.main.map_data, 1)
     
-    @patch('main.input', return_value="g")
-    def test_get_parameters_wrong_value(self, return_value):
-        self.main.get_parameters()
-        self.assertEqual(self.main.algorithm, 1)
-        self.assertEqual(self.main.heuristic, 2)
+    def test_get_parameters_wrong_values_replaced(self):
+        with mock.patch('main.input', side_effect=['s', 'y']):
+            self.main.get_parameters()
+            self.assertEqual(self.main.algorithm, 1)
+            self.assertEqual(self.main.heuristic, 2)
+    
+    def test_get_parameters_values_to_big(self):
+        with mock.patch('main.input', side_effect=[5, 7]):
+            self.main.get_parameters()
+            self.assertEqual(self.main.algorithm, 1)
+            self.assertEqual(self.main.heuristic, 2)
+    
+    def test_get_parameters_other_algoritms(self):
+        with mock.patch('main.input', side_effect=['2', '1']):
+            self.main.get_parameters()
+            self.assertEqual(self.main.algorithm, 2)
+            self.assertEqual(self.main.heuristic, 0)
