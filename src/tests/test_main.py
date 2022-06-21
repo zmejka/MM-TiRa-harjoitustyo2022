@@ -32,6 +32,24 @@ class TestMain(unittest.TestCase):
     
     def test_start_objects_a_star(self):
         self.assertIsInstance(self.main.start()[6], AStar)
+    
+    '''def test_start_main_loop(self):
+        pygame.init()
+        test_data = [['@','@','@','@','@'],
+                    ['@','.','.','.','@'],
+                    ['@','.','.','.','@'],
+                    ['@','.','.','.','@'],
+                    ['@','@','@','@','@']]
+        test_screen = pygame.display.set_mode((40, 40))
+        test_view = View(test_screen, 40, 40)
+        test_algorithm = AStar(test_data)
+        pygame.event.get()
+        test_event = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos = (1, 1))
+        pygame.event.post(test_event)
+        event = pygame.event.poll()
+        result = event.type == pygame.MOUSEBUTTONDOWN and event.pos == (5, 5)
+        self.assertEqual(self.main.main_loop((test_screen,test_view, 40, 40, 5, 5, test_algorithm)), result)
+        pygame.quit()'''    
 
     def test_get_map(self):
         with mock.patch('main.input', return_value="2"):
