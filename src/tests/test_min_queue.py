@@ -17,11 +17,6 @@ class TestQueue(unittest.TestCase):
         self.queue.add_to_queue(((4,5),2))
         self.assertEqual(self.queue.queue, [(2, (4,5)), (5, (1,3))])
 
-    def test_clear_list(self):
-        self.queue.add_to_queue(((5,5),2))
-        self.queue.clear_queue()
-        self.assertEqual(self.queue.queue, [])
-
     def test_remove_min_value(self):
         self.queue.add_to_queue(((2,5),27))
         self.queue.add_to_queue(((1,3),5))
@@ -33,11 +28,6 @@ class TestQueue(unittest.TestCase):
         self.queue.add_to_queue(((1,3),5))
         self.queue.add_to_queue(((4,5),27))
         self.assertNotEqual(self.queue.remove_from_queue(), ((1,3),5))
-    
-    def test_get_queue(self):
-        self.queue.add_to_queue(((5,5),2))
-        self.queue.add_to_queue(((1,3),5))
-        self.assertEqual(self.queue.get_queue(), [(2,(5,5)),(5, (1,3))])
     
     def test_queue_is_not_empty(self):
         self.queue.add_to_queue(((5,5),2))

@@ -4,7 +4,6 @@
     DIAG_COST : diagonaalisesti vierekkäin olevien ruutujen hinta, neliöjuuri(2)
     DIRECTIONS : 8 suunnan siirtymäkoordinaatit
 '''
-import time
 from math import sqrt
 
 from min_queue import Queue
@@ -45,8 +44,18 @@ class Jps:
         Args:
             start : alkuruutu
             end : kohderuutu
+        Alkuruutu lisätään avoimelle listalle, parent listalle sekä cost-listalle.
+            Alkuruudun hinta on 0.
+        Niin kauan, että minimikeossa on ruutuja:
+            Tarkistetaan, onko kohderuutu on lyötynyt.
+                Jos ei, poimitaan ruutu keosta.
+            Jos poimitu ruutu on kohderuutu, kutsutaan polun muodostus metodi ja
+                palautetaan tulokset.
+            Jos poimittu ruutu on close-listalla, jatketaan seuraavaan ruutuun
+            Muuten kutsutaan laajennusmetodi.
+        Jos minimikeossa ei ole enää ruutuja tai kohderuutu on löytynyt,
+            Kutsutaan polun muodostus metodia tai palautetaan tiedon, että polkua ei löytynyt.
         '''
-        time_start = time.time()
         self.end = end
         self.start = start
         self.parent[start] = None
@@ -59,27 +68,36 @@ class Jps:
             node = self.open_queue.remove_from_queue()
             if node[0] == end:
                 result_path = self.jps_core.get_path(self.end, self.parent)
-                time_end = time.time()
-                print("Aika:", round((time_end-time_start), 3))
-                print("Lisätty avoimelle listalle: ", self.open_counter)
-                print("Tarkistettu pisteittä: ", self.close_counter)
-                return (self.parent, result_path)
+                return (self.parent, result_path, self.open_counter, self.close_counter)
             if node[0] in self.close_list:
                 continue
             self.close_list[node[0]] = self.cost[node[0]]
             self.close_counter = self.close_counter + 1
             self.expand_node(node)
-        time_end = time.time()
-        print("Aika:", round((time_end-time_start), 3))
-        print("Lisätty avoimelle listalle: ", self.open_counter)
-        print("Tarkistettu pisteittä: ", self.close_counter)
         if self.ready:
             results = self.jps_core.get_path(self.end, self.parent)
-            return (self.parent, results)
+            return (self.parent, results, self.open_counter, self.close_counter)
         return "Polkua ei löytynyt!"
 
     def expand_node(self, node):
-        ''' Skannataan 8 suuntaa. '''
+        ''' Ruudun skannaus 8 suuntaan.
+        Args:
+            node : tarkastettava ruutu
+        Jokaiseen annetun suuntaan:
+            Cost-listaan lisätään etäisyys alkuruudusta tarkastettavaan ruutuun.
+            Jos tarkistettava suunta on diaginaalinen:
+                suoritetaan diagonaalisen skannauksen annettuun suuntaan
+            Muulloin:
+                suoritetaan joko pysty- tai vaakasuunnan stannaus
+            Jos skannaus palauttaa tyhjä tai palautettu koordinaatti on jo close-listalla,
+                siirrytään seuraavaan suuntaan
+            Muulloin:
+                Jos kohderuutu on löytynyt,
+                    lisätään parent listaan tarkastettavan ruudun vanhemmaksi annettu ruutu
+                    lisätään kekoon tuple : (tarkastettava ruutu, etäisyys 1) ja vanhempi ruutu
+                Muulloin:
+                    lisätään kekoon tuple : tarkastettava ruutu, vanhempi ruutu
+        '''
         for direction in DIRECTIONS:
             distance = self.cost[node[0]]
             if direction[0]!=0 and direction[1]!=0:
@@ -94,6 +112,19 @@ class Jps:
             self.new_jump_point(scan, node)
 
     def new_jump_point(self, node, parent_node):
+        ''' Lisääminen minimikekon.
+        Args:
+            node : ruutu
+            parent_node : ruudun vanhempi
+        Lasketaan g-arvo (etäisyys alkuruudusta tarkistettavaan ruutuun).
+        Jos ruudun koordinaatit eivät ole cost-listalla tai
+        g-arvo on pienempi kuin arvo cost-listalla,
+            lisätään cost-listaan g-arvo,
+            lasketaan f-arvo (käytetään Diagonal-heuristiikka)
+            lisätään parent listaan tarkastettavan ruudun vanhemmaksi annettu ruutu
+            lisätään kekoon tuple : koordinaatit, f-arvo
+            päivitetään open-listan laskuri yhdellä
+        '''
         g_value = node[1]
         if node[0] not in self.cost or g_value < self.cost[node[0]]:
             self.cost[node[0]] = g_value
@@ -103,15 +134,32 @@ class Jps:
             self.open_counter = self.open_counter + 1
 
     def diag_jump(self, node, distance, direc):
-        ''' Horisontaalinen ja vertikaalinen skannaus:
+        ''' Diagonaalinen skannaus
         Args:
             node : tarkistettava ruutu
             distance : etäisyys alkuruudusta tarkastettavaan ruutuun
-            direction : koordinaattipari, joka määrä mihin suuntaan skannaus suoritetaan
+            direc : skannaussuunta
+        Tarkastettavan ruudun naapuri annetussa suunnassa:
+            Jos naapuriruutu ei ole kartalla, palautetaan tyhjä
+            Jos naapuriruutu on este tai ruutu on jo tarkastettu, palautetaan tyhjä
+            Jos naapuriruutu on kohderuutu, asetetaan ready arvo True:ksi ja
+                palautetaan naapuriruutu ja etäisyys siihen asti
+            Jos piste on kulkukelpoinen;
+                Jos naapuriruutu on hyppypiste,
+                    palautetaan naapuriruutu ja etäisyys siihen asti
+                Jos naapuriruudusta suoritettu pysty- tai vaakaskannaus ei ole tyhjä,
+                    palautetaan naapuriruutu ja etäisyys siihen asti
+            Muulloin jatketaan skannausta samaan diagonaaliseen suuntaan.
+        Returns:
+            jump-point koordinaatit, etäisyys
         '''
         next_x = node[0][0]+direc[0]
         next_y = node[0][1]+direc[1]
         dist = distance + DIAG_COST
+        if next_x > (len(self.map)-2) or next_x < 2:
+            return None
+        if next_y > len(self.map[0])-2 or next_y < 2:
+            return None
         if self.map[next_x][next_y] != '.' or (next_x,next_y) in self.close_list:
             return None
         if (next_x,next_y) == self.end:
@@ -127,14 +175,29 @@ class Jps:
         return self.diag_jump(((next_x,next_y),0), dist, direc)
 
     def hor_ver_jump(self, node, distance, direc):
-        ''' Horisontaalinen ja vertikaalinen skannaus:
+        ''' Pysty- tai vaakasuunnan skannaus
         Args:
             node : tarkistettava ruutu
             distance : etäisyys alkuruudusta tarkastettavaan ruutuun
-            direction : koordinaattipari, joka määrä mihin suuntaan skannaus suoritetaan
+            direc : skannaussuunta
+        Tarkastettavan ruudun naapuri annetussa suunnassa:
+            Jos naapuriruutu ei ole kartalla, palautetaan tyhjä
+            Jos naapuriruutu on este tai ruutu on jo tarkastettu, palautetaan tyhjä
+            Jos naapuriruutu on kohderuutu, asetetaan ready arvo True:ksi ja
+                palautetaan naapuriruutu ja etäisyys siihen asti
+            Jos piste on kulkukelpoinen;
+                Jos naapuriruutu on hyppypiste,
+                    palautetaan naapuriruutu ja etäisyys siihen asti
+            Muulloin jatketaan skannausta samaan pysty-/vaaka-suuntaan.
+        Returns:
+            jump-point koordinaatit, etäisyys
         '''
         next_x = node[0][0]+direc[0]
         next_y = node[0][1]+direc[1]
+        if next_x > len(self.map)-2 or next_x < 2:
+            return None
+        if next_y > len(self.map[0])-2 or next_y < 2:
+            return None
         dist = distance + COST
         if self.map[next_x][next_y] != '.' or (next_x,next_y) in self.close_list:
             return None

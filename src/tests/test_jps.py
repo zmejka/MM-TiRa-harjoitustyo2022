@@ -28,7 +28,8 @@ class TestAStar(unittest.TestCase):
         self.assertEqual(test_algorithm.jps(start,end), "Polkua ei löytynyt!")
     
     def test_diagonal_jumps_hor(self):
-        test_data = [['@','@','@','@','@'],
+        test_data = [['.','.','.','.','@'],
+                    ['@','@','.','.','@'],
                     ['@','.','.','.','@'],
                     ['@','@','@','.','@'],
                     ['@','.','.','.','@'],
@@ -36,18 +37,19 @@ class TestAStar(unittest.TestCase):
         test_algorithm = Jps(test_data)
         start = (1,1)
         end = (3,3)
-        self.assertEqual(test_algorithm.jps(start,end)[1], [(1,1),(1,2),(2,3),(3,3)])
+        self.assertEqual(test_algorithm.jps(start,end)[1], [(1,1),(3,3)])
     
     def test_diagonal_jumps_ver(self):
-        test_data = [['@','@','@','@','@'],
+        test_data = [['.','.','.','.','@'],
+                    ['@','.','.','@','@'],
+                    ['@','@','.','.','@'],
+                    ['.','.','@','.','@'],
                     ['@','.','@','.','@'],
-                    ['@','.','@','.','@'],
-                    ['@','.','.','.','@'],
                     ['@','@','@','@','@']]
         test_algorithm = Jps(test_data)
         start = (1,1)
         end = (3,3)
-        self.assertEqual(test_algorithm.jps(start,end)[1], [(1,1),(2,1),(3,2),(3,3)])
+        self.assertEqual(test_algorithm.jps(start,end)[1], [(1,1),(2,2),(3,3)])
     
     def test_start_same_as_end(self):
         start = (1,1)

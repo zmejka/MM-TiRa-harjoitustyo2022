@@ -5,6 +5,8 @@
 
 ----
 
+[Käyttöohje](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/kayttoohje.md)
+
 [Määrittelydokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/maarittelydokumentti.md)
 
 [Testausdokumentti](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/testausdokumentti.md)

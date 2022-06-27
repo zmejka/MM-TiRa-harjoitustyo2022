@@ -1,4 +1,5 @@
 import os
+import time
 import pygame
 from a_star import AStar
 from jps import Jps
@@ -11,6 +12,11 @@ FILES = ["ca_cave.map",
          "dr_dungeon.map",
          "ht_mansion2.map",
          "brc000d.map",
+         "brc503d.map",
+         "lt_undercityserialkiller.map",
+         "lt_undercityencounter.map",
+         "lt_gallowstemplar_f.map",
+         "den000d.map",
          "dr_primevalentrance.map",
          "brc201d.map",
          "lt_warehouse_n.map",
@@ -47,7 +53,7 @@ class Main:
         self.get_parameters()
         objects = self.start()
         print(" -------- Reittihaku -------- ")
-        print(f"Algoritmi: {ALGORITHMS[self.algorithm]}, Heuristiikka: {HEURISTICS[self.heuristic]}.")
+        print(f"Algoritmi: {ALGORITHMS[self.algorithm]}, Heuristiikka: {HEURISTICS[self.heuristic]}")
         self.main_loop(objects)
 
         pygame.quit() # pylint: disable=no-member
@@ -59,13 +65,19 @@ class Main:
         points = objects[1].get_points(objects)
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
+        #start_c = (int(146/2),int(10/2))
+        #end_c = (int(10/2),int(621/2))
+        start_time = time.time()
         if self.algorithm in (1, 3):
             results = objects[6].a_star(start_c, end_c, self.heuristic, self.algorithm)
+            end_time = time.time()
         else:
             results = objects[6].jps(start_c, end_c)
+            end_time = time.time()
         if isinstance(results, str):
             print (results)
         else:
+            self.print_results(start_time, end_time, results[2], results[3], len(results[1]))
             objects[1].update_map(results)
 
         reset_button = Button(" Uusi kartta ", (objects[2]-130, objects[3]-40))
@@ -105,9 +117,13 @@ class Main:
         return (screen, view, scr_width, scr_height, parameters[2], parameters[1], jps)
 
     def get_map(self):
-        map_file = input("Anna kartan numero (1-10): ")
+        print("-------------------------------------------------- \n"+
+            "Valitse kartta tai lopeta. Q lopeta ohjelman")
+        map_file = input("Anna kartan numero (1-15) tai Q: ")
         try:
-            if int(map_file) in range(1, 11):
+            if map_file.upper() == "Q":
+                raise SystemExit
+            if int(map_file) in range(1, 16):
                 self.map_data = int(map_file)
             else:
                 print("Jokin meni pieleen. Valittu kartta numero 1. ")
@@ -135,3 +151,9 @@ class Main:
                 print("Jokin meni pieleen. Valittu euklidinen heuriistikka. ")
         else:
             self.heuristic = 0
+
+    def print_results(self, start_time, end_time, open_counter, close_counter, path_length):
+        print("Aika:", round((end_time-start_time), 3))
+        print(f"Lisätty avoimelle listalle: {open_counter} \n"+
+            f"Tarkistettu pisteittä: {close_counter} \n"+
+            f"Polkun pituus: {path_length}")
