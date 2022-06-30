@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/zmejka/MM-TiRa-harjoitustyo2022/branch/master/graph/badge.svg?token=46FQUTXEF5)](https://codecov.io/gh/zmejka/MM-TiRa-harjoitustyo2022)
 
 ----
+[Release v1.0.0](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/releases/tag/v1.0.0) 
 
 [Käyttöohje](https://github.com/zmejka/MM-TiRa-harjoitustyo2022/blob/master/dokumentaatio/kayttoohje.md)
 
