@@ -1,3 +1,10 @@
+''' Pääohjelma
+    Args:
+        background : ikkunan väri
+        files : karttalista
+        algorithms : algoritmilista
+        heuristics : heuristiikoiden lista
+'''
 import os
 import time
 import pygame
@@ -29,6 +36,9 @@ HEURISTICS = {0:" -- " ,1:" Manhattan ", 2:" Euclidean ", 3:" Diagonal "}
 
 class Main:
     ''' Args:
+            map_data : kartantunniste, oletuksena 1 (ensimmäinen kartta)
+            algorithm : algoritmitunniste, oletuksena 1 (A*)
+            heuristic : heuristiikka, oletuksena 2 (euclidean)
             width : leveys pikseleinä
             height : korkeus pikseleinä
             start_point : aloituskoordinaatit
@@ -44,22 +54,30 @@ class Main:
         self.start_point = (0,0)
         self.end_point = (0.0)
 
+
     def main(self):
         ''' Ohjelman suoritus.
             Huom! pylint tarkastus on poistettu pygame 'no-member' riveiltä.
+            Alustetaan kartta, alustetaan muut parametrit ja käynnistetään pääsilmukkaa.
         '''
         pygame.init() # pylint: disable=no-member
         self.get_map()
         self.get_parameters()
         objects = self.start()
         print(" -------- Reittihaku -------- ")
-        print(f"Algoritmi: {ALGORITHMS[self.algorithm]}, Heuristiikka: {HEURISTICS[self.heuristic]}")
+        print(f"Algoritmi:{ALGORITHMS[self.algorithm]}, Heuristiikka:{HEURISTICS[self.heuristic]}")
         self.main_loop(objects)
 
         pygame.quit() # pylint: disable=no-member
 
+
     def main_loop(self, objects):
-        ''' Pääsilmukka. '''
+        ''' Pääsilmukka.
+            Args:
+                objects : lista parametreja (start metodi)
+            Kutsu algoritmin toiminnallisuuden.
+            Kutsu reset metodi
+        '''
         clock = pygame.time.Clock()
         clock.tick(20)
         points = objects[1].get_points(objects)
@@ -80,6 +98,16 @@ class Main:
             self.print_results(start_time, end_time, results[2], results[3], len(results[1]))
             objects[1].update_map(results)
 
+        self.reset(objects)
+
+
+    def reset(self, objects):
+        ''' Resetointi menetelmä
+            Args:
+                objects : lista parametreja (start metodi)
+            Luo Uusi kartta painike
+            Sulkee visualisointi-ikkunan ja kutsuu main metodin.
+        '''
         reset_button = Button(" Uusi kartta ", (objects[2]-130, objects[3]-40))
         running = True
         while running:
@@ -88,14 +116,22 @@ class Main:
                     raise SystemExit
                 if event.type == pygame.MOUSEBUTTONDOWN: # pylint: disable=no-member
                     if reset_button.click_event(event):
-                        pygame.quit()
+                        pygame.quit() # pylint: disable=no-member
                         self.main()
             reset_button.show_button(objects[0], reset_button)
             pygame.display.update()
         pygame.display.update()
 
+
     def start(self):
-        ''' Aloitustoiminnot. '''
+        ''' Aloitustoiminnot.
+            Alustaa karttamatriisi
+            Alustaa algoritmit
+            Alustaa visualisointi-ikkunaa
+            Returns:
+                Parametrien lista : ikkuna, ui olio, ikkunan leveys, ikkunan korkeus,
+                    kartan leveys, kartan korkeus, algoritmi olio
+        '''
 
         file = FILES[self.map_data-1]
         map_file = MapFile(os.path.join(dirname, "maps", file))
@@ -116,7 +152,10 @@ class Main:
             return (screen, view, scr_width, scr_height, parameters[2], parameters[1], a_star)
         return (screen, view, scr_width, scr_height, parameters[2], parameters[1], jps)
 
+
     def get_map(self):
+        ''' Pyyttää käyttäjältä kartan tunnusluvun.
+        '''
         print("-------------------------------------------------- \n"+
             "Valitse kartta tai lopeta. Q lopeta ohjelman")
         map_file = input("Anna kartan numero (1-15) tai Q: ")
@@ -130,7 +169,10 @@ class Main:
         except ValueError:
             print("Jokin meni pieleen. Valittu kartta numero 1. ")
 
+
     def get_parameters(self):
+        ''' Pyyttää käyttäjältä algoritmin ja heuristiikan tunnusluvut.
+        '''
         used_algorithm = input("Anna algoritmin koodi 1 = A*, 2 = JPS, 3 = Dijkstra: ")
         try:
             if int(used_algorithm) in range(1, 4):
@@ -152,7 +194,16 @@ class Main:
         else:
             self.heuristic = 0
 
+
     def print_results(self, start_time, end_time, open_counter, close_counter, path_length):
+        ''' Tulostaa tulokset
+            Args:
+                start_time : aloitusaika
+                end_time : loppuaika
+                open_counter : avoimelle listalle lisättyjen ruutujen määrä
+                close_counter : tarkastettujen/laajennettujen ruutujen määrä
+                path_length : löytyneen polun pituus
+        '''
         print("Aika:", round((end_time-start_time), 3))
         print(f"Lisätty avoimelle listalle: {open_counter} \n"+
             f"Tarkistettu pisteittä: {close_counter} \n"+
