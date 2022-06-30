@@ -10,7 +10,7 @@ class Queue:
     def add_to_queue(self, value):
         '''
         Lisätään minimikekoon tuple : etäisyys, koordinaatit
-        Heap tietorakenne järjestää listan lisämisen jälkeen
+        Heap tietorakenne järjestää listan lisäämisen jälkeen
             pienemmästä suurempaan.
         '''
         heap.heappush(self.queue, (value[1], value[0]))

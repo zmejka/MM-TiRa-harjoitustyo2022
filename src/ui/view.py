@@ -158,7 +158,7 @@ class Button:
         self.set_name(name)
 
     def set_name(self, new_name):
-        ''' Päivittää painikkeen tunniste
+        ''' Päivittää painikkeen tunnisteen
             Args:
                 new_name : uusi tunniste
         '''
@@ -170,7 +170,7 @@ class Button:
         self.rect = pygame.Rect(self.x, self.y, (self.size[0]+10), (self.size[1]+10))
 
     def show_button(self, screen, button):
-        ''' Päivittää painikkeen näkymä
+        ''' Päivittää painikkeen näkymän
             Args:
                 screen : ikkuna
                 button : painike-olio
@@ -191,3 +191,4 @@ class Button:
                 if self.rect.collidepoint(position):
                     return True
         return False
+    

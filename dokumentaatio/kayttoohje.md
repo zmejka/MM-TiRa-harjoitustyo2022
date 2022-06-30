@@ -25,7 +25,7 @@ _____
 
 ### Sovelluksen käyttäminen
 
-Ohjelman käyttöliittymä on tekstipohjainen. Käynnistyksen jälkeen ohjelma kysyy kartan numero, algoritmi sekä heuristiikka. Jos käyttäjä valitse Dijkstra tai JPS-algoritmia, heuristiikka ei kysytä. 
+Ohjelman käyttöliittymä on tekstipohjainen. Käynnistyksen jälkeen ohjelma kysyy kartan numeron, algoritmin sekä heuristiikan. Jos käyttäjä valitse Dijkstra tai JPS-algoritmia, heuristiikka ei kysytä. 
 
 ![Kuva1](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kayttoohje_1.png)
 
@@ -53,7 +53,7 @@ Ohjelma lopetetaan joko syöttämällä *Q* kartta valinnan yhteydessä.
 #### Yksikkötestit
 
 Yksikkötestit testaavat sovelluksen eri osat, käyttöliittymää lukuunottamatta. Testit sijaitsevat kansiossa src/tests
-Ohjelamn yksikkötestit suoritetaan komennolla:
+Ohjelman yksikkötestit suoritetaan komennolla:
 
    ```
     poetry run invoke test

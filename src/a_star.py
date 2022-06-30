@@ -13,7 +13,7 @@ class AStar:
             map : karttadata matriisimuodossa
             open_queue : avoin minimikeko, tarkastusjonossa olevia ruutuja
             close_list : lista ruutuja, jotka ovat jo tarkastettu
-            parent : lista vanhempiruutuja polkun rakentamista varten
+            parent : lista vanhempiruutuja polun rakentamista varten
             cost : lista, johon on tallennettu etäisyydet alkuruudusta ruutuun
             ready : True, jos kohderuutu on loytynyt, False muulloin
             a_star_core : algoritmin perustominnot
@@ -42,7 +42,7 @@ class AStar:
         Niin kauan, että minimikeossa on ruutuja:
             Tarkistetaan, onko kohderuutu on lyötynyt.
                 Jos ei, poimitaan ruutu keosta.
-            Jos poimitu ruutu on kohderuutu, kutsutaan polun muodostus metodi ja
+            Jos poimittu ruutu on kohderuutu, kutsutaan polun muodostus metodi ja
                 palautetaan tulokset.
             Jos poimittu ruutu on close-listalla, jatketaan seuraavaan ruutuun
             Muuten kutsutaan laajennusmetodi.

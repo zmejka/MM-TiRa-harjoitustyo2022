@@ -1,7 +1,7 @@
 # Toteutusdokumentti
 ----
 
-Minne matka? ohjelman avulla pystyy vertaamaan ja testaamaan Dijkstra, A-star ja Jump Point Search (JPS) algoritmien toiminta annetuissa kartoissa. Karttojen kulku alueet ovat tasahintaisia, jolloin voidaan ruudusta ruutuun siirtymisen hinnaksi määrittää 1, jos ruutu on viereinen, tai neliöjuuri 2, jos naapuriruutu on viistosti.  Ohjelmassa käytetään Moving AI Lab 2D *Dragon Age: Origins* ja *Dragon Age 2* karttoja. Ohjelma on tekstipohjainen ja algoritmien toiminnan visualisointi on toteutettu Pygame:lla. 
+"Minne matka?" ohjelman avulla pystyy vertaamaan ja testaamaan Dijkstra, A-star ja Jump Point Search (JPS) algoritmien toimintaa annetuissa kartoissa. Karttojen kulku alueet ovat tasahintaisia, jolloin voidaan ruudusta ruutuun siirtymisen hinnaksi määrittää 1, jos ruutu on viereinen, tai neliöjuuri 2, jos naapuriruutu on kulmittainen naapuri.  Ohjelmassa käytetään Moving AI Lab 2D *Dragon Age: Origins* ja *Dragon Age 2* karttoja. Ohjelman käyttöliittymä on tekstipohjainen ja algoritmien toiminnan visualisointi on toteutettu Pygame:lla. 
 
 ______
 
@@ -15,7 +15,7 @@ Dokumentaatiokansio sisältää ohjelman käyttöohjeen, määrittely-, testaus-
 
 ### Käyttöliittymä
 
-Käyttöliittymä on tekstipohjainen. Käyttöliittymä pyyttää syötteinä kartta, algoritmi ja heuristiikka tietoja. Algoritmien toiminnan visualisointi ja alku- ja loppupisteiden määritys on toteutettu Pygame:llä. Ohjelma tulostaa konsolille algoritmin suoritukseen kuulunut aika, kuinka monta ruutua on lisätty kekoon, kuinka monta ruutua on laajennettu ja polun pituus.
+Käyttöliittymä on tekstipohjainen. Käyttöliittymä pyyttää syötteinä kartta, algoritmi ja heuristiikka tietoja. Algoritmien toiminnan visualisointi ja alku- ja loppupisteiden määritys on toteutettu Pygame:lla. Ohjelma tulostaa konsolille algoritmin suoritukseen kuulunut aika, kuinka monta ruutua on lisätty kekoon, kuinka monta ruutua on laajennettu sekä polun pituus.
 
 ### Minimikeko
 
@@ -23,9 +23,9 @@ Minimikeko toteutuksessa käytetty Python valmis tietorakenne *heapq*. Arvoa lis
 
 ### Algoritmit
 
-Dijkstra ja A-star algoritmit on toteutettu A-star luokassa. Algoritmit toimivat muuten samalla tavoin, mutta Dijkstra algoritmi ei laske heuristiista etäisyyttä tarkastettavasta ruudusta loppuruutuun. Algoritmi lisää minimikekoon alkuruudun ja aseta sen etäisyyskustannukseksi 0. Tämän jälkeen algoritmit poimiivat minimikeosta pienemmän kustannuksen omavan ruudun ja laajentavat sen 8 suuntaan (ylös, vasen, oikea, alas, vasen yläviisto, vasen alaviisto, oikea yläviisto, oikea alaviisto). Uusille suunnille lasketaan g-arvo (etäisyys alkupisteestä tarkastettavaan ruutuun) ja, jos g-arvoa ei ollut laskettu ennen tai etäisyyskustannuslistalla oleva arvo on suurempi kuin uusi arvo, lasketaan ruudun heuristiisen etäisyyden loppuruutuun ja lisätään kekoon. Jokaisen ruudun kohdalla tarkistetaan, että ruutu on kulkukelpoinen ja on kartalla. Toistetaan kunnes kohderuutu on löytynyt.
+Dijkstra ja A-star algoritmit on toteutettu A-star luokassa. Algoritmit toimivat muuten samalla tavoin, mutta Dijkstra algoritmi ei laske heuristiista etäisyyttä tarkastettavasta ruudusta loppuruutuun. Algoritmi lisää minimikekoon alkuruudun ja aseta sen etäisyyskustannukseksi 0. Tämän jälkeen algoritmit poimivat minimikeosta pienemmän kustannuksen omaavan ruudun ja laajentavat sen 8 suuntaan (ylös, vasen, oikea, alas, vasen yläviisto, vasen alaviisto, oikea yläviisto, oikea alaviisto). Uusille suunnille lasketaan g-arvo (etäisyys alkupisteestä tarkastettavaan ruutuun) ja, jos g-arvoa ei ollut laskettu ennen tai etäisyyskustannuslistalla oleva arvo on suurempi kuin uusi arvo, lasketaan ruudun heuristiisen etäisyyden loppuruutuun ja lisätään kekoon. Jokaisen ruudun kohdalla tarkistetaan, että ruutu on kulkukelpoinen ja on kartalla. Toistetaan kunnes kohderuutu on löytynyt.
 
-JPS toimi muuten samalla tavoin kuin A-star algoritmi, mutta kekoon lisätään vain ne pisteet, jotka täyttävät hyppypisteen määritelmä tai ovat kääntöpisteitä. Ruudun laajentamisen jälkeen pysty- ja vaakasuuntaan suoritetaan rekursiivisen skannauksen annettuun suuntaan, joka päätyy joko hyppypisteen palauttamiseen tai, jos hyppypistettä ei löydy, tyhjän palauttamiseen. Diagonaalisissa suunnissa rekursiivisesti skannataan kartta annettuun suuntaan. Jos tarkastettava ruutu on hyppypiste, se palautetaan, muuten suoritetaan pysty- (0, k + y-suunta) ja vaakasuunnan (k + x-suunta, 0) skannauksen . Tarkastettava ruutu palautetaan kääntöruutuna, jos jompi kumpi skannauksista palautta hyppypisteen. Jos diagonaalisessa suunnassa ei löydy hyppypisteitä tai kääntöpisteitä, palautetaan tyhjä. 
+JPS toimii muuten samalla tavoin kuin A-star algoritmi, mutta kekoon lisätään vain ne pisteet, jotka täyttävät hyppypisteen määritelmän tai ovat kääntöpisteitä. Ruudun laajentamisen jälkeen pysty- ja vaakasuuntaan suoritetaan rekursiivisen skannauksen annettuun suuntaan, joka päätyy joko hyppypisteen palauttamiseen tai, jos hyppypistettä ei löydy, tyhjän palauttamiseen. Diagonaalisissa suunnissa rekursiivisesti skannataan kartta annettuun suuntaan. Jos tarkastettava ruutu on hyppypiste, se palautetaan, muuten suoritetaan pysty- (0, k + y-suunta) ja vaakasuunnan (k + x-suunta, 0) skannauksen. Tarkastettava ruutu palautetaan kääntöruutuna, jos jompi kumpi skannauksista palautta hyppypisteen. Jos diagonaalisessa suunnassa ei löydy hyppypisteitä tai kääntöpisteitä, palautetaan tyhjä. 
 
 Algoritmien suorituskyky on arvioitu *Suorituskyky* osassa.
 

@@ -41,7 +41,7 @@ class Main:
             heuristic : heuristiikka, oletuksena 2 (euclidean)
             width : leveys pikseleinä
             height : korkeus pikseleinä
-            start_point : aloituskoordinaatit
+            start_point : alkupistekoordinaatit
             end_point : kohdekoordinaatit
     '''
 
@@ -83,8 +83,6 @@ class Main:
         points = objects[1].get_points(objects)
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
-        #start_c = (int(146/2),int(10/2))
-        #end_c = (int(10/2),int(621/2))
         start_time = time.time()
         if self.algorithm in (1, 3):
             results = objects[6].a_star(start_c, end_c, self.heuristic, self.algorithm)
@@ -125,9 +123,9 @@ class Main:
 
     def start(self):
         ''' Aloitustoiminnot.
-            Alustaa karttamatriisi
+            Alustaa karttamatriisin
             Alustaa algoritmit
-            Alustaa visualisointi-ikkunaa
+            Alustaa visualisointi-ikkunan
             Returns:
                 Parametrien lista : ikkuna, ui olio, ikkunan leveys, ikkunan korkeus,
                     kartan leveys, kartan korkeus, algoritmi olio
