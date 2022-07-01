@@ -60,3 +60,7 @@ Wikipedia A-star https://en.wikipedia.org/wiki/A*_search_algorithm
 Wikipedia JPS https://en.wikipedia.org/wiki/Jump_point_search
 
 Heapq dokumentaatio https://docs.python.org/3/library/heapq.html
+
+Shortest Path https://harablog.wordpress.com/2011/09/07/jump-point-search/
+
+Introduction to the A-star Algorithm https://www.redblobgames.com/pathfinding/a-star/introduction.html
