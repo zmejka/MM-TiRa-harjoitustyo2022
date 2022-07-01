@@ -35,6 +35,10 @@ Kartan 5 tyyppisessä avoimessa näkymässä saavutettiin Dijkstra algoritmiin n
 
 Vastaavasti kartan 3 tyyppisessa sokkeloisessa labyrintissa JPS algoritmi suiriutui ajallisesti heikoiten. JPS oli noin 1,4 kertaa hitaampi kuin Dijkstra ja 2 kertaa hitaampi kuin A-star algoritmi. JPS:n polut sisälsivät noin 2 kertaa vähemmän ruutuja kuin Dijkstran ja A-star algoritmien polut. JPS algoritmilla tarkistettiin noin 6 kertaa vähemmän ruutuja kuin Dijkstran algoritmilla ja noin 5 kertaa vähemmän ruutuja kuin A-star algoritmilla.
 
+Kartan 3 viiksilaatikkodiagrammit:
+
+![Results](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/kartta3_charts.png)
+
 Kaikissa testeissa JPS algoritmilla saavutettiin 0.7 - 12 kertainen muutos suoritusajassa verrattuna Dijkstran algoritmin ja 0,7 - 8 kertainen muutos A-star algoritmin verrattuna.  
 
 #### Aikaisemmat testaukset
