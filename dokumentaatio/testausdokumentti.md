@@ -21,6 +21,11 @@ Yksikkötesteihin lisättiin 32x32 kartta. Kartassa alkun ja kohdepisteiden väl
 
 ![Polku](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/polku_kartta.png)  
 
+## Polun pituuden testaus MovingAI kartalla (valmis scenaario)
+
+Lisätty 31.7.2022
+ 
+
 ## Koodin laatu
 
 Koodin laatua tarkasteltiin pylint:n avulla. Viimeisin pylint raportti antoi arvosanan 9.79/10. Koodin laatuvirheitä olivat esimerkiksi liian monta atribuuttia ja liian monta sisäkkäistä lohkoa. Lisäksi koodissa on jonkin verran toisteisuutta.
