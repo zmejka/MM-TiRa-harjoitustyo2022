@@ -71,7 +71,7 @@ class AStar:
             self.expand_node(node, end, heuristic, algorithm)
         if self.ready:
             results = self.a_star_core.get_path(end, self.parent)
-            return (self.parent, results, self.open_counter, len(self.close_list))
+            return (self.parent, results[0], self.open_counter, len(self.close_list), results[1])
         return "Polkua ei löytynyt!"
 
     def expand_node(self, node, end, heuristic, algorithm):

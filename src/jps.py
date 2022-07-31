@@ -1,6 +1,6 @@
 ''' JPS - algorithm
     Args:
-    COST : verekkäin olevien ruutujen hinta, 1
+    COST : vierekkäin olevien ruutujen hinta, 1
     DIAG_COST : diagonaalisesti vierekkäin olevien ruutujen hinta, neliöjuuri(2)
     DIRECTIONS : 8 suunnan siirtymäkoordinaatit
 '''
@@ -76,7 +76,7 @@ class Jps:
             self.expand_node(node)
         if self.ready:
             results = self.jps_core.get_path(self.end, self.parent)
-            return (self.parent, results, self.open_counter, self.close_counter)
+            return (self.parent, results[0], self.open_counter, self.close_counter, results[1])
         return "Polkua ei löytynyt!"
 
     def expand_node(self, node):

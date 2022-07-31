@@ -11,7 +11,15 @@ Ohjelman yksikkötestaus on suoritettu unittestillä ja se kattaa muut osat pait
 
 ![Coverage](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/coverage_end.png)
 
+Kuva päivitetty 31.7.2022
+
 Yksikkötestit ajetaan automaattisesti githup push- ja pull- toimintojen yhteydessä. Yksikkötestiraportit ovat luettavissa Codecov:ssa.
+
+### Polun pituuden yksikkötestaus 
+Lisätty 31.7.2022
+Yksikkötesteihin lisättiin 32x32 kartta. Kartassa alkun ja kohdepisteiden välillä on useita lyhyintä reittiä. Kuvassa esitetty kaksi esimerkkiä reitteistä. Lyhyimmän reitin pituus on laskettu käsiin 65.1126983722. Kaikki kolme algoritmiä löytävät saman pituisen lyhyimmän reitin tästä kartasta. Tarkastus on tehty 6 desimaalin tarkkuudella.
+
+![Polku](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/polku_kartta.png)  
 
 ## Koodin laatu
 

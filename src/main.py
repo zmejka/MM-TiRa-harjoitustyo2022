@@ -83,6 +83,9 @@ class Main:
         points = objects[1].get_points(objects)
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
+
+        #start_c = (203,6)
+        #end_c = (75,292)
         start_time = time.time()
         if self.algorithm in (1, 3):
             results = objects[6].a_star(start_c, end_c, self.heuristic, self.algorithm)
@@ -93,7 +96,8 @@ class Main:
         if isinstance(results, str):
             print (results)
         else:
-            self.print_results(start_time, end_time, results[2], results[3], len(results[1]))
+            print(f"Start: {start_c}, End: {end_c}")
+            self.print_results(start_time, end_time, results[2], results[3], len(results[1]),results[4])
             objects[1].update_map(results)
 
         self.reset(objects)
@@ -193,7 +197,7 @@ class Main:
             self.heuristic = 0
 
 
-    def print_results(self, start_time, end_time, open_counter, close_counter, path_length):
+    def print_results(self, start_time, end_time, open_counter, close_counter, path_length, lenght):
         ''' Tulostaa tulokset
             Args:
                 start_time : aloitusaika
@@ -205,4 +209,6 @@ class Main:
         print("Aika:", round((end_time-start_time), 3))
         print(f"Lisätty avoimelle listalle: {open_counter} \n"+
             f"Tarkistettu pisteittä: {close_counter} \n"+
-            f"Polkun pituus: {path_length}")
+            f"Polun pituus (pisteina): {path_length} \n"+
+            f"Polun pituus: {lenght:.6f}")
+
