@@ -15,16 +15,26 @@ Kuva päivitetty 31.7.2022
 
 Yksikkötestit ajetaan automaattisesti githup push- ja pull- toimintojen yhteydessä. Yksikkötestiraportit ovat luettavissa Codecov:ssa.
 
-### Polun pituuden yksikkötestaus 
+## Polun pituuden yksikkötestaus 
 Lisätty 31.7.2022
-Yksikkötesteihin lisättiin 32x32 kartta. Kartassa alkun ja kohdepisteiden välillä on useita lyhyintä reittiä. Kuvassa esitetty kaksi esimerkkiä reitteistä. Lyhyimmän reitin pituus on laskettu käsiin 65.1126983722. Kaikki kolme algoritmiä löytävät saman pituisen lyhyimmän reitin tästä kartasta. Tarkastus on tehty 6 desimaalin tarkkuudella.
+Polun pituuden testaus toteutettu yksikkökestauksena.
+
+Yksikkötesteihin lisättiin 32x32 kartta. Kartassa alku- ja kohdepisteiden välillä on useita lyhyimpiä reittejä. Kuvassa esitetty kaksi esimerkkiä reiteistä. Lyhyimmän reitin pituus on laskettu käsin: 65,1126983722. Kaikki kolme algoritmiä löytävät saman pituisen lyhyimmän reitin tästä kartasta. Tarkastus on tehty 6 desimaalin tarkkuudella.
 
 ![Polku](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/polku_kartta.png)  
 
-## Polun pituuden testaus MovingAI kartalla (valmis scenaario)
+### Polun pituuden testaus MovingAI kartalla (valmis skenaario)
 
-Lisätty 31.7.2022
+Kartta 5: brc503d.map skenaario alkupiste (x = 6,  y = 207) ja kohdepiste (x = 292, y = 75). Skenaarion laskettu lyhyemmän polun pituus on 467,90663757. Skenaariopolussa on 2 kohtaa, josta polku kiertää kulman, mutta sovellus muodostaan diagonaalisen siirtymän. Tämän vuoksi testatulla ohjelmalla saatu samasta reitistä polun pituudeksi 466,735065. 
+
+467,90663757 - 466,735065 = 1,17157288 ja kahden siirtymän muodostama virhe on 4 - 2*sqrt(2) = 1,17157288.
+
+![Virheet](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/virhekohdat.png) 
  
+Yksikkötestauksessa testattiin, että annetuilla koordinaateilla kaikki kolme algoritmia löytävät lyhyemmän reitin, joka 6 desimaalin tarkkuudella on 466,735065.
+Lisäksi testattiin reittihaun toistettavuutta. Kaikilla kolmella algoritmilla suoritettiin 100 onnistunutta hakua arvotuilla koordinaateilla alkualueelta (x: 0 - 12, y: 197 - 209) kohdealueeseen (x: 286 - 298, y: 69 - 81) (kts. kuva). Vaatimuksena, että 100 tuloksen keskiarvo ei saa poiketa laskennallisesta pituudesta yli 1% suuntaansa (462,126431 - 471,402416). Koska 300 toiston testit vievät runsaasti aikaa, niin palautetun versioon testeihin muutettiin toistomääriksi 20 hakua / algoritmi. 
+ 
+ ![Testialueet](https://github.com/zmejka/MM-Tira-harjoitustyo2022/blob/master/dokumentaatio/kuvat/alustus.png) 
 
 ## Koodin laatu
 

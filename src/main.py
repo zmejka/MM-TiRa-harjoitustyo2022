@@ -84,8 +84,6 @@ class Main:
         start_c = (int(points[0][0]/2), int(points[0][1]/2))
         end_c = (int(points[1][0]/2), int(points[1][1]/2))
 
-        #start_c = (203,6)
-        #end_c = (75,292)
         start_time = time.time()
         if self.algorithm in (1, 3):
             results = objects[6].a_star(start_c, end_c, self.heuristic, self.algorithm)
@@ -96,8 +94,8 @@ class Main:
         if isinstance(results, str):
             print (results)
         else:
-            print(f"Start: {start_c}, End: {end_c}")
-            self.print_results(start_time, end_time, results[2], results[3], len(results[1]),results[4])
+            self.print_results(start_time, end_time, results[2], results[3], 
+                                len(results[1]),results[4])
             objects[1].update_map(results)
 
         self.reset(objects)
@@ -195,7 +193,6 @@ class Main:
                 print("Jokin meni pieleen. Valittu euklidinen heuriistikka. ")
         else:
             self.heuristic = 0
-
 
     def print_results(self, start_time, end_time, open_counter, close_counter, path_length, lenght):
         ''' Tulostaa tulokset

@@ -69,13 +69,17 @@ class AlgorithmCore:
         reversed_path = self.path[::-1]
         path_lenght = self.path_lenght(reversed_path)
         return reversed_path, path_lenght
-    
+
     def path_lenght(self, path):
+        ''' Lasketaan polun pituus alkuruudusta loppuruutuun.
+            Args:
+                path : polku alkuruususta kohderuutuun
+            Returns:
+                palautetaan polun pituus'''
         lenght = 0
         for index in range(len(path)-1):
             start = path[index]
             end = path[index+1]
             price = self.heuristic_method(start, end, 3)
             lenght += price
-            print(index,": siirtymä:", start, "->", end, ": kokonaisuus", lenght)
         return lenght

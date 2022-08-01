@@ -1,4 +1,6 @@
 import unittest
+import random
+from map_file import MapFile
 from algorithm_core import AlgorithmCore
 from a_star import AStar
 
@@ -126,3 +128,53 @@ class TestAStar(unittest.TestCase):
         start = (2,2)
         end = (5,29)
         self.assertEqual(round(test_algorithm.a_star(start,end,2,3)[4],6), 65.112698)
+
+    def test_scenario_a_star_lenght(self):
+        test_map = MapFile("test_brc503d.map")
+        test_map_data = test_map.parameters()
+        test_algorithm = AStar(test_map_data[0])
+        start = (203,6)
+        end = (75,292)
+        self.assertEqual(round(test_algorithm.a_star(start,end,2,1)[4],6), 466.735065)
+    
+    def test_scenario_dijkstra_lenght(self):
+        test_map = MapFile("test_brc503d.map")
+        test_map_data = test_map.parameters()
+        test_algorithm = AStar(test_map_data[0])
+        start = (203,6)
+        end = (75,292)
+        self.assertEqual(round(test_algorithm.a_star(start,end,2,3)[4],6), 466.735065)
+
+    def test_scenario_a_star_random_path(self):
+        test_map = MapFile("test_brc503d.map")
+        test_map_data = test_map.parameters()
+        results = []
+        while len(results) <= 20:  #100:
+            test_algorithm = AStar(test_map_data[0])
+            start = (random.randint(197, 210),random.randint(0,13))
+            end = (random.randint(69,82),random.randint(286,299))
+            if test_map_data[0][end[0]][end[1]] == ".":
+                result = test_algorithm.a_star(start,end,2,1)[4]
+                if isinstance(result, str):
+                    continue
+                else:
+                    results.append(round(result,6))
+        self.assertGreaterEqual(round(sum(results)/len(results),6), 462.126431)
+        self.assertLessEqual(round(sum(results)/len(results),6), 471.402416)
+    
+    def test_scenario_dijkstra_random_path(self):
+        test_map = MapFile("test_brc503d.map")
+        test_map_data = test_map.parameters()
+        results = []
+        while len(results) <= 20:  #100:
+            test_algorithm = AStar(test_map_data[0])
+            start = (random.randint(197, 210),random.randint(0,13))
+            end = (random.randint(69,82),random.randint(286,299))
+            if test_map_data[0][end[0]][end[1]] == ".":
+                result = test_algorithm.a_star(start,end,2,3)[4]
+                if isinstance(result, str):
+                    continue
+                else:
+                    results.append(round(result,6))
+        self.assertGreaterEqual(round(sum(results)/len(results),6), 462.126431)
+        self.assertLessEqual(round(sum(results)/len(results),6), 471.402416)
